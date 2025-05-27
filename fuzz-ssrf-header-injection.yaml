@@ -18,6 +18,7 @@ http:
       X-Original-URL: "/latest/meta-data/"
       X-Forwarded-Scheme: "http"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: body

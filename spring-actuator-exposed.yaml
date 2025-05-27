@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/actuator/env"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

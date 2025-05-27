@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/app/kibana"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

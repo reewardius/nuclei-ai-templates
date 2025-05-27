@@ -13,6 +13,7 @@ http:
       - "{{BaseURL}}/?exec=whoami"
       - "{{BaseURL}}/?input=whoami"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

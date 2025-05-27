@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?url=http://{{interactsh-url}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

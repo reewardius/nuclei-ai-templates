@@ -22,7 +22,8 @@ http:
         mode: single
         fuzz:
           - "{{subdirs}}"
-
+          
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

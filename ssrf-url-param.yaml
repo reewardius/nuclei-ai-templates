@@ -14,6 +14,7 @@ http:
       - "{{BaseURL}}/?redirect=http://127.0.0.1"
       - "{{BaseURL}}/?target=http://127.0.0.1"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

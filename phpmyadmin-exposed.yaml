@@ -12,6 +12,7 @@ http:
       - "{{BaseURL}}/phpmyadmin/"
       - "{{BaseURL}}/pma/"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

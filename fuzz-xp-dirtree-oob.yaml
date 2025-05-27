@@ -22,7 +22,8 @@ http:
         mode: multiple
         fuzz:
           - "{{dirtree}}"
-
+          
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

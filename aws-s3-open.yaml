@@ -6,11 +6,12 @@ info:
   author: reewardius
   tags: aws,s3,exposure
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

@@ -30,7 +30,7 @@ http:
         fuzz:
           - "{{ssrf}}"
 
-    stop-at-first-match: false
+    stop-at-first-match: true
     redirects: true
     matchers:
       - type: word

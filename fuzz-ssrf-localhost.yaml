@@ -27,6 +27,8 @@ http:
         fuzz:
           - "{{ssrf}}"
 
+    stop-at-first-match: true
+    matchers-condition: or
     matchers:
       - type: regex
         part: body

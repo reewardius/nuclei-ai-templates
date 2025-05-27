@@ -6,11 +6,12 @@ info:
   author: reewardius
   tags: docker,devops,exposure
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/containers/json"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

@@ -23,6 +23,7 @@ http:
         fuzz:
           - "{{lfi}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: body

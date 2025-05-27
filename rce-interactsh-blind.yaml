@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?cmd=curl+{{interactsh-url}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

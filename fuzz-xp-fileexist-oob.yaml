@@ -23,6 +23,7 @@ http:
         fuzz:
           - "{{fileexist}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

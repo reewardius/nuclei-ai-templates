@@ -24,6 +24,7 @@ http:
         fuzz:
           - "{{php_rce}}"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: body

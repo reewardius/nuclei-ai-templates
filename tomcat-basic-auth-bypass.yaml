@@ -14,6 +14,7 @@ http:
     headers:
       Authorization: Basic YWRtaW46YWRtaW4=  # admin:admin
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: body

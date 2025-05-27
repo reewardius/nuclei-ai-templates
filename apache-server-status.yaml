@@ -7,11 +7,12 @@ info:
   description: |
     Apache exposes internal metrics at /server-status.
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/server-status"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

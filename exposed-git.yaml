@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/.git/HEAD"
       
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

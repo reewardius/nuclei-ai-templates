@@ -9,11 +9,12 @@ info:
 http:
   - method: GET
     path:
-      - "{{BaseURL}}/api"
+      - "{{BaseURL}}"
 
     headers:
       Host: "169.254.169.254"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

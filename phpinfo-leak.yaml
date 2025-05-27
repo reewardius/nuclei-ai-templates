@@ -13,6 +13,7 @@ http:
       - "{{BaseURL}}/info.php"
       - "{{BaseURL}}/i.php"
       
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

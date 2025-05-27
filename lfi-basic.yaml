@@ -12,6 +12,7 @@ http:
       - "{{BaseURL}}/?file=../../../../../../etc/passwd"
       - "{{BaseURL}}/?path=../../../../../../etc/passwd"
 
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

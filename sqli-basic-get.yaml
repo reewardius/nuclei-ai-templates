@@ -19,6 +19,7 @@ http:
       - "{{BaseURL}}/?query=1'"
       - "{{BaseURL}}/?login=1'"
       
+    stop-at-first-match: true
     matchers:
       - type: word
         words:

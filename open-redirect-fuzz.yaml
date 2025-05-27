@@ -43,6 +43,7 @@ http:
         fuzz:
           - "{{redirect}}"
           
+    stop-at-first-match: true
     matchers:
       - type: regex
         part: header
