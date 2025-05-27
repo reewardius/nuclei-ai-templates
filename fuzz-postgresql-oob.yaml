@@ -1,4 +1,4 @@
-id: fuzz-postgresql-oob
+id: ai-fuzz-postgresql-oob
 
 info:
   name: PostgreSQL OOB via COPY TO PROGRAM
