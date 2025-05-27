@@ -2,10 +2,10 @@ id: ssrf-url-param
 
 info:
   name: SSRF via URL Parameter
-  severity: critical
+  severity: high
   author: reewardius
   tags: ssrf,web
-
+  
 http:
   - method: GET
     path:

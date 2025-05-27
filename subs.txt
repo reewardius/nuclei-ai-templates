@@ -1,0 +1,7 @@
+angular.testinvicti.com
+aspnet.testinvicti.com
+php.testinvicti.com
+python.testinvicti.com
+vulnapi.testinvicti.com
+graphql.testinvicti.com
+rest.testinvicti.com
