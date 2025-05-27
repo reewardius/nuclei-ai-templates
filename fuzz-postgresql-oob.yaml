@@ -4,7 +4,7 @@ info:
   name: PostgreSQL OOB via COPY TO PROGRAM
   author: openai
   severity: critical
-  tags: postgres,oob,rce,dast
+  tags: postgres,oob,sqli,dast
 
 http:
   - method: GET

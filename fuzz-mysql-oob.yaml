@@ -4,7 +4,7 @@ info:
   name: MySQL OOB via LOAD_FILE
   author: openai
   severity: high
-  tags: mysql,sqli,oob,dast
+  tags: mysql,oob,sqli,dast
 
 http:
   - method: GET

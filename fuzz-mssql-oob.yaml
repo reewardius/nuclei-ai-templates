@@ -4,7 +4,7 @@ info:
   name: MSSQL OOB via xp_cmdshell/xp_dirtree
   author: openai
   severity: high
-  tags: mssql,sqli,oob,dast
+  tags: mssql,oob,sqli,dast
 
 http:
   - method: GET
