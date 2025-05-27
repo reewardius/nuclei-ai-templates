@@ -16,7 +16,7 @@ http:
         - "http://{{interactsh-url}}"
         - "http://{{interactsh-url}}/meta"
         - "http://{{interactsh-url}}:8080/"
-
+        
     fuzzing:
       - part: query
         mode: multiple

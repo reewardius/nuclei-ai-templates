@@ -17,7 +17,7 @@ http:
         - "<?=`id`?>"
         - "'; system('id'); //"
         - "';`id`;//"
-
+        
     fuzzing:
       - part: query
         mode: multiple

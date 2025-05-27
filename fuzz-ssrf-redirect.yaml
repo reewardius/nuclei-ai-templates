@@ -23,7 +23,7 @@ http:
         - "http://[::1]"
         - "http://127.1.2.3"
         - "http://{{interactsh-url}}"
-
+        
     fuzzing:
       - part: query
         mode: multiple

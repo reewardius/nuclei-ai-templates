@@ -14,9 +14,7 @@ http:
     payloads:
       subdirs:
         - "1; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\test'--"
-        - "1'; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\test'--"
-        - "1"; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\test'--"
-
+        
     fuzzing:
       - part: query
         mode: single

