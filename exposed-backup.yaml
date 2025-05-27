@@ -6,13 +6,15 @@ info:
   author: bugbounty-hunter
   tags: backup,files
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/backup.zip"
+      - "{{BaseURL}}/sitebackup.zip"
+      - "{{BaseURL}}/site-backup.zip"
       - "{{BaseURL}}/site.bak"
       - "{{BaseURL}}/db.tar.gz"
-
+      
     matchers:
       - type: status
         status:

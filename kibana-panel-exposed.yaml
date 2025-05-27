@@ -6,7 +6,7 @@ info:
   author: bugbounty-hunter
   tags: kibana,exposure
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/app/kibana"

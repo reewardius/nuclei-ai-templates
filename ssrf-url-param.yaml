@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: ssrf,web
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?url=http://127.0.0.1"
@@ -17,7 +17,5 @@ requests:
     matchers:
       - type: word
         words:
-          - "refused"
           - "localhost"
           - "127.0.0.1"
-        condition: or

@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: ssrf,blind,oast
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?url=http://{{interactsh-url}}"

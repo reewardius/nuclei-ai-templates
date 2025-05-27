@@ -39,12 +39,10 @@ http:
         
     fuzzing:
       - part: query
-        mode: multiple
+        mode: single
         fuzz:
           - "{{redirect}}"
-
-    redirects: false
-
+          
     matchers:
       - type: regex
         part: header

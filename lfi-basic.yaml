@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: lfi,web
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?file=../../../../../../etc/passwd"

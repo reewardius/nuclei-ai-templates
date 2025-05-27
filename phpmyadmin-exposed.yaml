@@ -6,7 +6,7 @@ info:
   author: bugbounty-hunter
   tags: phpmyadmin,exposure
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/phpmyadmin/"

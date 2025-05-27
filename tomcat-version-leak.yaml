@@ -7,7 +7,7 @@ info:
   description: |
     Tomcat version is disclosed in error messages or headers.
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/thispagedoesnotexist"

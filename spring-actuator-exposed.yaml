@@ -6,7 +6,7 @@ info:
   author: bugbounty-hunter
   tags: springboot,actuator
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/actuator/env"

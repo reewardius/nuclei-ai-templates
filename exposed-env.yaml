@@ -6,7 +6,7 @@ info:
   author: bugbounty-hunter
   tags: env,config,leak
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/.env"

@@ -7,7 +7,7 @@ info:
   description: |
     Tests if Tomcat manager is accessible with default or no auth.
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/manager/html"

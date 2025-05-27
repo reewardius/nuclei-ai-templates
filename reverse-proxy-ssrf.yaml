@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: ssrf,proxy,misconfig
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/api"

@@ -5,12 +5,12 @@ info:
   severity: high
   author: bugbounty-hunter
   tags: git,exposure,files
-
-requests:
+  
+http:
   - method: GET
     path:
       - "{{BaseURL}}/.git/HEAD"
-
+      
     matchers:
       - type: word
         words:

