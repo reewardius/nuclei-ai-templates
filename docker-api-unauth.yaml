@@ -1,0 +1,19 @@
+id: docker-api-unauth
+
+info:
+  name: Docker API Exposed Without Auth
+  severity: critical
+  author: reewardius
+  tags: docker,devops,exposure
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/containers/json"
+
+    matchers:
+      - type: word
+        words:
+          - "\"Id\":"
+          - "\"Image\":"
+        condition: and

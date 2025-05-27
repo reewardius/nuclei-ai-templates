@@ -1,0 +1,33 @@
+id: fuzz-ssrf-redirect
+
+info:
+  name: SSRF via URL Redirect
+  author: openai
+  severity: high
+  tags: ssrf,dast,redirect
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      redirect:
+        - "http://127.0.0.1:80"
+        - "http://localhost"
+        - "http://169.254.169.254"
+        - "http://169.254.169.254/latest/meta-data/"
+        - "http://0.0.0.0"
+        - "http://127.1.2.3"
+
+    fuzzing:
+      - part: query
+        mode: multiple
+        fuzz:
+          - "{{redirect}}"
+
+    matchers:
+      - type: regex
+        part: header
+        regex:
+          - "Location:.*(127|169\\.254)"

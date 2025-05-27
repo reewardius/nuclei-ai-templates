@@ -1,0 +1,18 @@
+id: aws-s3-open
+
+info:
+  name: AWS S3 Bucket Publicly Accessible
+  severity: critical
+  author: reewardius
+  tags: aws,s3,exposure
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers:
+      - type: word
+        words:
+          - "ListBucketResult"
+          - "<Key>"

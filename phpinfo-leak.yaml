@@ -1,0 +1,18 @@
+id: phpinfo-leak
+
+info:
+  name: PHP Info Leak
+  severity: critical
+  author: reewardius
+  tags: php,exposure,debug
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/phpinfo.php"
+      - "{{BaseURL}}/info.php"
+
+    matchers:
+      - type: word
+        words:
+          - "<title>phpinfo()"

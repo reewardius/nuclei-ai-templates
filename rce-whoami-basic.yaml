@@ -1,0 +1,19 @@
+id: rce-whoami-basic
+
+info:
+  name: RCE via Command Injection
+  severity: critical
+  author: reewardius
+  tags: rce,injection,command
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?cmd=whoami"
+      - "{{BaseURL}}/?exec=whoami"
+      - "{{BaseURL}}/?input=whoami"
+
+    matchers:
+      - type: regex
+        regex:
+          - "(?i)(root|admin|apache|www-data|user)"

@@ -1,0 +1,19 @@
+id: exposed-env
+
+info:
+  name: Exposed .env File
+  severity: critical
+  author: bugbounty-hunter
+  tags: env,config,leak
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+
+    matchers:
+      - type: word
+        words:
+          - "APP_KEY="
+          - "DB_PASSWORD="
+        condition: or

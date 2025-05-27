@@ -1,0 +1,26 @@
+id: exposed-backup
+
+info:
+  name: Common Backup File Exposure
+  severity: high
+  author: bugbounty-hunter
+  tags: backup,files
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/backup.zip"
+      - "{{BaseURL}}/site.bak"
+      - "{{BaseURL}}/db.tar.gz"
+
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        part: header
+        words:
+          - "application/zip"
+          - "application/octet-stream"
+        condition: or

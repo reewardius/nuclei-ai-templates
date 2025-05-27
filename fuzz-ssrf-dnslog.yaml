@@ -1,0 +1,30 @@
+id: fuzz-ssrf-dnslog
+
+info:
+  name: SSRF DNS Interaction
+  author: openai
+  severity: critical
+  tags: ssrf,dast,oob
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      ssrf:
+        - "http://{{interactsh-url}}"
+        - "http://{{interactsh-url}}/meta"
+        - "http://{{interactsh-url}}:8080/"
+
+    fuzzing:
+      - part: query
+        mode: multiple
+        fuzz:
+          - "{{ssrf}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "http"

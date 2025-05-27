@@ -1,0 +1,42 @@
+id: fuzz-ssrf-localhost
+
+info:
+  name: SSRF Localhost Access
+  author: openai
+  severity: high
+  tags: ssrf,dast,localhost,metadata
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      ssrf:
+        - "http://127.0.0.1"
+        - "http://localhost"
+        - "http://[::1]"
+        - "http://169.254.169.254/latest/meta-data/"
+        - "http://0.0.0.0"
+        - "http://10.0.0.1"
+        - "http://192.168.0.1"
+
+    fuzzing:
+      - part: query
+        mode: multiple
+        fuzz:
+          - "{{ssrf}}"
+
+    matchers:
+      - type: regex
+        part: body
+        regex:
+          - "root:x:0:0"  # лефа через /etc/passwd
+          - "instance-id"
+          - "ec2"  # EC2 metadata
+          - "Linux version"
+      - type: word
+        part: header
+        words:
+          - "Server: EC2ws"
+          - "Metadata-Flavor"

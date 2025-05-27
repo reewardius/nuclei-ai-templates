@@ -1,0 +1,18 @@
+id: jenkins-unauth
+
+info:
+  name: Jenkins Dashboard Exposed
+  severity: critical
+  author: bugbounty-hunter
+  tags: jenkins,ci,unauth
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/manage"
+
+    matchers:
+      - type: word
+        words:
+          - "Jenkins ["
+          - "Manage Jenkins"

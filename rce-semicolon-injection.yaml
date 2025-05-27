@@ -1,0 +1,20 @@
+id: rce-semicolon-injection
+
+info:
+  name: RCE via Semicolon Injection
+  severity: critical
+  author: reewardius
+  tags: rce,command-injection
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?q=;id"
+      - "{{BaseURL}}/?cmd=;id"
+      - "{{BaseURL}}/?exec=;id"
+      
+    matchers:
+      - type: word
+        words:
+          - "uid="
+          - "gid="

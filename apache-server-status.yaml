@@ -1,0 +1,20 @@
+id: apache-server-status
+
+info:
+  name: Apache Server Status Page Exposed
+  author: reewardius
+  severity: medium
+  description: |
+    Apache exposes internal metrics at /server-status.
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/server-status"
+
+    matchers:
+      - type: word
+        words:
+          - "Apache Server Status"
+          - "Current Time"
+        condition: and

@@ -1,0 +1,20 @@
+id: phpmyadmin-exposed
+
+info:
+  name: phpMyAdmin Exposed
+  severity: high
+  author: bugbounty-hunter
+  tags: phpmyadmin,exposure
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/phpmyadmin/"
+      - "{{BaseURL}}/pma/"
+
+    matchers:
+      - type: word
+        words:
+          - "phpMyAdmin"
+          - "Username:"
+        condition: and

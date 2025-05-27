@@ -1,0 +1,21 @@
+id: tomcat-basic-auth-bypass
+
+info:
+  name: Tomcat Basic Auth Misconfiguration
+  author: reewardius
+  severity: high
+  description: |
+    Tests if Tomcat manager is accessible with default or no auth.
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/manager/html"
+    headers:
+      Authorization: Basic YWRtaW46YWRtaW4=  # admin:admin
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "Tomcat Web Application Manager"

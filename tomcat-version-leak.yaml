@@ -1,0 +1,19 @@
+id: tomcat-version-leak
+
+info:
+  name: Apache Tomcat Version Leak
+  author: reewardius
+  severity: info
+  description: |
+    Tomcat version is disclosed in error messages or headers.
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/thispagedoesnotexist"
+
+    matchers:
+      - type: regex
+        part: body
+        regex:
+          - "Apache Tomcat/[0-9.]+"

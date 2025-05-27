@@ -1,0 +1,23 @@
+id: ssrf-url-param
+
+info:
+  name: SSRF via URL Parameter
+  severity: critical
+  author: reewardius
+  tags: ssrf,web
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?url=http://127.0.0.1"
+      - "{{BaseURL}}/?next=http://127.0.0.1"
+      - "{{BaseURL}}/?redirect=http://127.0.0.1"
+      - "{{BaseURL}}/?target=http://127.0.0.1"
+
+    matchers:
+      - type: word
+        words:
+          - "refused"
+          - "localhost"
+          - "127.0.0.1"
+        condition: or

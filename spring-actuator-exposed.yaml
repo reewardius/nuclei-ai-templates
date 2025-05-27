@@ -1,0 +1,17 @@
+id: spring-actuator-exposed
+
+info:
+  name: Spring Boot Actuator Exposed
+  severity: critical
+  author: bugbounty-hunter
+  tags: springboot,actuator
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/actuator/env"
+
+    matchers:
+      - type: word
+        words:
+          - "propertySources"

