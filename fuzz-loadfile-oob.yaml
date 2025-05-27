@@ -1,4 +1,4 @@
-id: fuzz-loadfile-oob
+id: ai-fuzz-loadfile-oob
 
 info:
   name: MySQL LOAD_FILE UNC Path OOB

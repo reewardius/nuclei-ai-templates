@@ -1,4 +1,4 @@
-id: reverse-proxy-ssrf
+id: ai-reverse-proxy-ssrf
 
 info:
   name: Reverse Proxy SSRF

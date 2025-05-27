@@ -1,4 +1,4 @@
-id: mssql-xp-cmdshell-oob-fuzzing
+id: ai-mssql-xp-cmdshell-oob-fuzzing
 
 info:
   name: MSSQL xp_cmdshell RCE OOB Fuzzing

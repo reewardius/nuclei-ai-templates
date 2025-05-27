@@ -1,4 +1,4 @@
-id: fuzz-mysql-oob
+id: ai-fuzz-mysql-oob
 
 info:
   name: MySQL OOB via LOAD_FILE

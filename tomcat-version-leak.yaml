@@ -1,4 +1,4 @@
-id: tomcat-version-leak
+id: ai-tomcat-version-leak
 
 info:
   name: Apache Tomcat Version Leak

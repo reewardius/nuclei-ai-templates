@@ -1,4 +1,4 @@
-id: sqli-oob-generic
+id: ai-sqli-oob-generic
 
 info:
   name: SQLi OOB Generic (UNION + DNS Exfil)

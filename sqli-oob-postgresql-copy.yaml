@@ -1,4 +1,4 @@
-id: sqli-oob-postgresql-copy
+id: ai-sqli-oob-postgresql-copy
 
 info:
   name: PostgreSQL SQLi OOB via COPY to remote file

@@ -1,4 +1,4 @@
-id: fuzz-xp-subdirs-oob
+id: ai-fuzz-xp-subdirs-oob
 
 info:
   name: MSSQL xp_subdirs UNC path OOB

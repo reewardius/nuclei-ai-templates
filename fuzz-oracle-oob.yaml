@@ -1,4 +1,4 @@
-id: fuzz-oracle-oob
+id: ai-fuzz-oracle-oob
 
 info:
   name: Oracle OOB via UTL_HTTP and DBMS_LDAP

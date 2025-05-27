@@ -1,4 +1,4 @@
-id: fuzz-ssrf-localhost
+id: ai-fuzz-ssrf-localhost
 
 info:
   name: SSRF Localhost Access

@@ -1,4 +1,4 @@
-id: rce-semicolon-injection
+id: ai-rce-semicolon-injection
 
 info:
   name: RCE via Semicolon Injection

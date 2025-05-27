@@ -1,4 +1,4 @@
-id: fuzz-rce-php-injection
+id: ai-fuzz-rce-php-injection
 
 info:
   name: PHP RCE via Code Injection

@@ -1,4 +1,4 @@
-id: phpinfo-leak
+id: ai-phpinfo-leak
 
 info:
   name: PHP Info Leak

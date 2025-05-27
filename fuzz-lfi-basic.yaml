@@ -1,4 +1,4 @@
-id: fuzz-lfi-basic
+id: ai-fuzz-lfi-basic
 
 info:
   name: LFI Basic Traversal

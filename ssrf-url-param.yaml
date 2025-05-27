@@ -1,4 +1,4 @@
-id: ssrf-url-param
+id: ai-ssrf-url-param
 
 info:
   name: SSRF via URL Parameter

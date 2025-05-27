@@ -1,4 +1,4 @@
-id: mssql-oob-openrowset-http
+id: ai-mssql-oob-openrowset-http
 
 info:
   name: MSSQL OOB via OPENROWSET HTTP Request

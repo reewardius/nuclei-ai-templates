@@ -1,4 +1,4 @@
-id: fuzz-ssrf-redirect
+id: ai-fuzz-ssrf-redirect
 
 info:
   name: SSRF via URL Injection (Redirect & Metadata)

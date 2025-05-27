@@ -1,4 +1,4 @@
-id: docker-api-unauth
+id: ai-docker-api-unauth
 
 info:
   name: Docker API Exposed Without Auth

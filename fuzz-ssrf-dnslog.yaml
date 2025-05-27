@@ -1,4 +1,4 @@
-id: fuzz-ssrf-dnslog
+id: ai-fuzz-ssrf-dnslog
 
 info:
   name: SSRF DNS Interaction

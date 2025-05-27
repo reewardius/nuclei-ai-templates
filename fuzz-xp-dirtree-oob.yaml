@@ -1,4 +1,4 @@
-id: fuzz-xp-dirtree-oob
+id: ai-fuzz-xp-dirtree-oob
 
 info:
   name: MSSQL xp_dirtree UNC path OOB

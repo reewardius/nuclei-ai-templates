@@ -1,4 +1,4 @@
-id: lfi-null-byte
+id: ai-lfi-null-byte
 
 info:
   name: LFI via Null Byte Injection

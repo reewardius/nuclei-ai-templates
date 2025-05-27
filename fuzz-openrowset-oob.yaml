@@ -1,4 +1,4 @@
-id: fuzz-openrowset-oob
+id: ai-fuzz-openrowset-oob
 
 info:
   name: MSSQL OPENROWSET UNC Path OOB

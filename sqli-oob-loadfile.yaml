@@ -1,4 +1,4 @@
-id: sqli-oob-loadfile
+id: ai-sqli-oob-loadfile
 
 info:
   name: MySQL SQLi OOB via load_file()

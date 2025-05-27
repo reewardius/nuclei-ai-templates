@@ -1,4 +1,4 @@
-id: open-redirect-fuzz
+id: ai-open-redirect-fuzz
 
 info:
   name: Open Redirect Detection

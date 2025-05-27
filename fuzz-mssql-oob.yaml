@@ -1,4 +1,4 @@
-id: fuzz-mssql-oob
+id: ai-fuzz-mssql-oob
 
 info:
   name: MSSQL OOB via xp_cmdshell/xp_dirtree

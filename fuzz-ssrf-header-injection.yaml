@@ -1,4 +1,4 @@
-id: fuzz-ssrf-header-injection
+id: ai-fuzz-ssrf-header-injection
 
 info:
   name: SSRF via Host Headers

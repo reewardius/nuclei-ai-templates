@@ -1,4 +1,4 @@
-id: postgres-oob-copy
+id: ai-postgres-oob-copy
 
 info:
   name: PostgreSQL COPY PROGRAM OOB

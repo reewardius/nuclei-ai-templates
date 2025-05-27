@@ -1,4 +1,4 @@
-id: fuzz-xp-cmdshell-oob
+id: ai-fuzz-xp-cmdshell-oob
 
 info:
   name: MSSQL xp_cmdshell UNC path OOB

@@ -1,4 +1,4 @@
-id: mssql-enable-xp-cmdshell-oob
+id: ai-mssql-enable-xp-cmdshell-oob
 
 info:
   name: MSSQL enable and test xp_cmdshell OOB

@@ -1,4 +1,4 @@
-id: fuzz-xp-fileexist-oob
+id: ai-fuzz-xp-fileexist-oob
 
 info:
   name: MSSQL xp_fileexist UNC path OOB

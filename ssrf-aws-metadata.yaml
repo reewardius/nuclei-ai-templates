@@ -1,4 +1,4 @@
-id: ssrf-aws-metadata
+id: ai-ssrf-aws-metadata
 
 info:
   name: SSRF AWS Metadata Access

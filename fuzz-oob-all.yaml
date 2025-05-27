@@ -1,4 +1,4 @@
-id: fuzz-oob-all
+id: ai-fuzz-oob-all
 
 info:
   name: Universal OOB Fuzzing (MSSQL, MySQL, PostgreSQL, Oracle)
