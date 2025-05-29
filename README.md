@@ -1,6 +1,6 @@
 #### Nuclei AI Templates Scanning
 ```
-nuclei -l targets.com -t nuclei-ai-templates/
+nuclei -l targets.txt -t nuclei-ai-templates/
 ```
 #### Nuclei DAST Scanning with AI Templates
 ```
