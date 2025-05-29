@@ -15,6 +15,8 @@ http:
       - "{{BaseURL}}/redirect?url=https://evil.com"
       - "{{BaseURL}}/goto?target=//evil.com"
       - "{{BaseURL}}/?url=http://malicious.com"
+      - "{{BaseURL}}/?redirect_to=http://malicious.com"
+      - "{{BaseURL}}/?redirect=http://malicious.com"
     
     matchers:
       - type: word
