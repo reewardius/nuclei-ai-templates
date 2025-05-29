@@ -1,0 +1,25 @@
+id: rails-database-yml-exposure
+info:
+  name: Ruby on Rails Database.yml Exposure
+  author: grok
+  severity: critical
+  description: Detects exposed Rails database.yml files containing database credentials.
+  tags: rails,ruby
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/config/database.yml"
+      - "{{BaseURL}}/config/secrets.yml"
+      - "{{BaseURL}}/app/config/secrets.yml"
+      
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "username:\\s*[^\\s]+"
+          - "password:\\s*[^\\s]+"
+          - "host:\\s*[^\\s]+"
+        condition: or
+      - type: status
+        status:
+          - 200

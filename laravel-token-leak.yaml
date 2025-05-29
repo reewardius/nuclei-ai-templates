@@ -1,0 +1,23 @@
+id: laravel-token-leak
+info:
+  name: Laravel Token Exposure
+  author: grok
+  severity: high
+  description: Detects exposed Laravel .env files containing sensitive tokens or keys.
+  tags: laravel, php, secret-leak
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/app/.env"
+      
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "APP_KEY=[a-zA-Z0-9:/+]+"
+          - "DB_PASSWORD=[^\\s]+"
+        condition: or
+      - type: status
+        status:
+          - 200

@@ -1,0 +1,29 @@
+id: django-debug-exposure
+info:
+  name: Django Debug Mode Exposure
+  author: grok
+  severity: critical
+  description: Detects Django applications with DEBUG mode enabled, potentially leading to sensitive information disclosure or RCE.
+  tags: django, python, misconfig
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      - "{{BaseURL}}/admin"
+      
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "Django"
+          - "Debug mode: on"
+        condition: and
+      - type: status
+        status:
+          - 500
+          - 200
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "SECRET_KEY\\s*=\\s*['\"][^'\"]+['\"]"

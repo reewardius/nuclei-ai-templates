@@ -1,0 +1,25 @@
+id: jmx-console-exposure
+
+info:
+  name: JMX Console Unauthorized Access
+  author: security-team
+  severity: critical
+  description: Detects exposed JMX console allowing remote code execution
+  tags: jmx,jboss,wildfly,rce,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/jmx-console"
+      - "{{BaseURL}}/web-console"
+      - "{{BaseURL}}/admin-console"
+      - "{{BaseURL}}/management"
+    
+    matchers:
+      - type: word
+        words:
+          - "JMX Agent View"
+          - "JBoss Management Console"
+          - "ObjectName Filter"
+        part: body
+        condition: or

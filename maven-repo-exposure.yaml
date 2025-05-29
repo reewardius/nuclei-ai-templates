@@ -1,0 +1,26 @@
+id: maven-repo-exposure
+
+info:
+  name: Maven Repository Exposure
+  author: security-team
+  severity: medium
+  description: Detects exposed Maven repositories with source code
+  tags: maven,repository,source,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.m2"
+      - "{{BaseURL}}/repository"
+      - "{{BaseURL}}/maven-metadata.xml"
+      - "{{BaseURL}}/archetype-catalog.xml"
+    
+    matchers:
+      - type: word
+        words:
+          - "maven-metadata"
+          - "archetype-catalog"
+          - "<groupId>"
+          - "<artifactId>"
+        part: body
+        condition: or

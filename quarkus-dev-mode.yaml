@@ -1,0 +1,25 @@
+id: quarkus-dev-mode
+
+info:
+  name: Quarkus Development Mode Exposure
+  author: security-team
+  severity: high
+  description: Detects Quarkus applications running in development mode
+  tags: quarkus,dev-mode,java,disclosure
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/q/dev"
+      - "{{BaseURL}}/q/health"
+      - "{{BaseURL}}/q/metrics"
+      - "{{BaseURL}}/q/openapi"
+    
+    matchers:
+      - type: word
+        words:
+          - "Quarkus Dev UI"
+          - "quarkus.application.name"
+          - "Development mode"
+        part: body
+        condition: or

@@ -1,0 +1,23 @@
+id: flask-debug-exposure
+info:
+  name: Flask Debug Mode Exposure
+  author: grok
+  severity: critical
+  description: Detects Flask applications with debug mode enabled, potentially leading to RCE or sensitive information disclosure.
+  tags: flask, python, misconfig
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "Flask"
+          - "Debug mode: on"
+        condition: and
+      - type: status
+        status:
+          - 500
+          - 200

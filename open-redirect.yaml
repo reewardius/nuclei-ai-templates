@@ -1,0 +1,25 @@
+id: open-redirect
+
+info:
+  name: Open Redirect Detection
+  author: security-team
+  severity: medium
+  description: Detects open redirect vulnerabilities
+  classification:
+    cwe-id: CWE-601
+  tags: redirect,phishing
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/redirect?url=https://evil.com"
+      - "{{BaseURL}}/goto?target=//evil.com"
+      - "{{BaseURL}}/?url=http://malicious.com"
+    
+    matchers:
+      - type: word
+        part: header
+        words:
+          - "Location: https://evil.com"
+          - "Location: //evil.com"
+          - "Location: http://malicious.com"

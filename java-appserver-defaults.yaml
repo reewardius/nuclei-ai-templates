@@ -1,0 +1,27 @@
+id: java-appserver-defaults
+
+info:
+  name: Java Application Server Default Pages
+  author: security-team
+  severity: low
+  description: Detects default pages of various Java application servers
+  tags: java,appserver,default,info
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/index.jsp"
+      - "{{BaseURL}}/welcome.jsp"
+    
+    matchers:
+      - type: word
+        words:
+          - "Apache Tomcat"
+          - "JBoss Application Server"
+          - "WebLogic Server"
+          - "GlassFish Server"
+          - "IBM WebSphere"
+          - "Jetty"
+        part: body
+        condition: or

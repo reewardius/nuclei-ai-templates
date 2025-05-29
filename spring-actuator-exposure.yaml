@@ -1,0 +1,41 @@
+id: spring-actuator-exposure
+
+info:
+  name: Spring Boot Actuator Endpoints Exposure
+  author: security-team
+  severity: high
+  description: Detects exposed Spring Boot Actuator endpoints with sensitive information
+  tags: spring-boot,actuator,info-disclosure
+  
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/actuator"
+      - "{{BaseURL}}/actuator/env"
+      - "{{BaseURL}}/actuator/configprops"
+      - "{{BaseURL}}/actuator/heapdump"
+      - "{{BaseURL}}/actuator/threaddump"
+      - "{{BaseURL}}/actuator/trace"
+      - "{{BaseURL}}/actuator/beans"
+      - "{{BaseURL}}/management/env"
+    
+    matchers:
+      - type: word
+        words:
+          - "JAVA_OPTS"
+          - "activeProfiles"
+          - "api.key"
+          - "aws.access.key"
+          - "database.password"
+          - "java.class.path"
+          - "jwt.secret"
+          - "mail.password"
+          - "password"
+          - "secret"
+          - "spring.datasource.password"
+          - "spring.datasource.password"
+          - "spring.security.user.password"
+          - "token"
+        case-insensitive: true
+        part: body
+        condition: or

@@ -1,0 +1,23 @@
+id: vaadin-info-disclosure
+
+info:
+  name: Vaadin Framework Information Disclosure
+  author: security-team
+  severity: low
+  description: Detects Vaadin framework information disclosure
+  tags: vaadin,disclosure,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/VAADIN/themes"
+      - "{{BaseURL}}/VAADIN/vaadinServlet"
+    
+    matchers:
+      - type: word
+        words:
+          - "vaadin"
+          - "UIDL"
+        case-insensitive: true
+        part: body
+        condition: or

@@ -1,0 +1,24 @@
+id: aspnet-debug-enabled
+
+info:
+  name: ASP.NET Debugging Enabled
+  author: grok
+  severity: critical
+  description: Detects ASP.NET applications with debugging enabled, potentially leading to sensitive information disclosure.
+  tags: aspnet, dotnet, misconfig
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      - "{{BaseURL}}/web.config"
+      
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "<compilation[^>]+debug=\"true\""
+          
+      - type: status
+        status:
+          - 200
+          - 500

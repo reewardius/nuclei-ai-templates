@@ -1,0 +1,28 @@
+id: micronaut-config-exposure
+
+info:
+  name: Micronaut Configuration Exposure
+  author: security-team
+  severity: medium
+  description: Detects exposed Micronaut configuration endpoints
+  tags: micronaut,config,disclosure,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/beans"
+      - "{{BaseURL}}/routes"
+      - "{{BaseURL}}/health"
+      - "{{BaseURL}}/info"
+      - "{{BaseURL}}/metrics"
+      - "{{BaseURL}}/env"
+      
+    matchers:
+      - type: word
+        words:
+          - "micronaut"
+          - "datasources"
+          - "application-name"
+        case-insensitive: true
+        part: body
+        condition: or

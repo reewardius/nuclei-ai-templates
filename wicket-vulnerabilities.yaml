@@ -1,0 +1,23 @@
+id: wicket-vulnerabilities
+
+info:
+  name: Apache Wicket Security Issues
+  author: security-team
+  severity: medium
+  description: Detects Apache Wicket security misconfigurations
+  tags: wicket,csrf,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/?wicket:bookmarkablePage=:org.apache.wicket.markup.html.pages.ExceptionErrorPage"
+      - "{{BaseURL}}/wicket/bookmarkable/org.apache.wicket.devutils.inspector.InspectorPage"
+    
+    matchers:
+      - type: word
+        words:
+          - "WicketRuntimeException"
+          - "Inspector"
+          - "wicket.devutils"
+        part: body
+        condition: or

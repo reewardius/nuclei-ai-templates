@@ -1,0 +1,25 @@
+id: django-settings-exposure
+info:
+  name: Django Exposed Settings File
+  author: grok
+  severity: critical
+  description: Detects exposed Django settings.py files containing sensitive configurations like SECRET_KEY or database credentials.
+  tags: django
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/settings.py"
+      - "{{BaseURL}}/config/settings.py"
+      - "{{BaseURL}}/app/settings.py"
+      - "{{BaseURL}}/admin/settings.py"
+      
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "SECRET_KEY\\s*=\\s*['\"][^'\"]+['\"]"
+          - "DATABASES\\s*=\\s*\\{[^}]+\\}"
+        condition: or
+      - type: status
+        status:
+          - 200

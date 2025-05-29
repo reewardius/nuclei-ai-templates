@@ -1,0 +1,33 @@
+id: backup-files-exposure
+
+info:
+  name: Backup Files Exposure
+  author: security-team
+  severity: medium
+  description: Detects exposed backup files
+  tags: exposure,backup,sensitive-files
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/backup.zip"
+      - "{{BaseURL}}/backup.tar.gz"
+      - "{{BaseURL}}/site-backup.sql"
+      - "{{BaseURL}}/database.sql"
+      - "{{BaseURL}}/db_backup.sql"
+      - "{{BaseURL}}/config.bak"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+          
+      - type: word
+        words:
+          - "application/zip"
+          - "application/x-gzip"
+          - "CREATE TABLE"
+          - "INSERT INTO"
+        part: header
+        condition: or

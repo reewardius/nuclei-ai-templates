@@ -1,0 +1,34 @@
+id: sql-injection-basic
+
+info:
+  name: SQL Injection Detection
+  author: security-team
+  severity: high
+  description: Detects basic SQL injection vulnerabilities
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cwe-id: CWE-89
+  tags: sqli,injection,database
+  
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/search?q=1' OR '1'='1"
+      - "{{BaseURL}}/login?user=admin' OR 1=1--"
+      - "{{BaseURL}}/?q=admin' OR 1=1--"
+      - "{{BaseURL}}/?query=1' UNION SELECT NULL--"
+    
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "mysql_fetch"
+          - "ORA-01756"
+          - "Microsoft OLE DB"
+          - "SQLite error"
+        condition: or
+      
+      - type: status
+        status:
+          - 200

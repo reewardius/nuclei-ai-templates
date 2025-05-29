@@ -1,0 +1,24 @@
+id: flask-config-exposure
+info:
+  name: Flask Config File Exposure
+  author: grok
+  severity: critical
+  description: Detects exposed Flask configuration files containing sensitive information like API keys or database credentials.
+  tags: flask
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/config.py"
+      - "{{BaseURL}}/instance/config.py"
+      - "{{BaseURL}}/app/config.py"
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "SECRET_KEY\\s*=\\s*['\"][^'\"]+['\"]"
+          - "SQLALCHEMY_DATABASE_URI\\s*=\\s*['\"][^'\"]+['\"]"
+          - "AWS_ACCESS_KEY\\s*=\\s*['\"][^'\"]+['\"]"
+        condition: or
+      - type: status
+        status:
+          - 200

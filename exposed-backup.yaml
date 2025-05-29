@@ -9,22 +9,26 @@ info:
 http:
   - method: GET
     path:
+      - "{{BaseURL}}/backup.tar.gz"
       - "{{BaseURL}}/backup.zip"
-      - "{{BaseURL}}/sitebackup.zip"
+      - "{{BaseURL}}/config.bak"
+      - "{{BaseURL}}/database.sql"
+      - "{{BaseURL}}/db.tar.gz"
+      - "{{BaseURL}}/db_backup.sql"
+      - "{{BaseURL}}/site-backup.sql"
       - "{{BaseURL}}/site-backup.zip"
       - "{{BaseURL}}/site.bak"
-      - "{{BaseURL}}/db.tar.gz"
+      - "{{BaseURL}}/sitebackup.zip"
       
-    stop-at-first-match: true
     matchers-condition: and
     matchers:
       - type: status
         status:
           - 200
-
+          
       - type: word
         part: header
         words:
           - "application/zip"
           - "application/octet-stream"
-        condition: or
+          - "application/x-gzip"

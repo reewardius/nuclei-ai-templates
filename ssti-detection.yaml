@@ -1,0 +1,30 @@
+id: ssti-detection
+
+info:
+  name: Server-Side Template Injection
+  author: security-team
+  severity: critical
+  description: Detects Server-Side Template Injection vulnerabilities
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cwe-id: CWE-94
+  tags: ssti,injection,template
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/search?q={{7*7}}"
+      - "{{BaseURL}}/error?msg=${7*7}"
+      - "{{BaseURL}}/template?name={{config}}"
+      - "{{BaseURL}}/render?template=<%=7*7%>"
+      - "{{BaseURL}}/page?content={{''.__class__.__mro__[2].__subclasses__()}}"
+    
+    matchers:
+      - type: word
+        words:
+          - "49"  # 7*7 result
+          - "<class 'object'>"
+          - "flask.config"
+        part: body
+        condition: or

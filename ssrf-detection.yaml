@@ -1,0 +1,28 @@
+id: ssrf-detection
+
+info:
+  name: SSRF Detection
+  author: security-team
+  severity: high
+  description: Detects Server-Side Request Forgery vulnerabilities
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cwe-id: CWE-918
+  tags: ssrf,injection
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/fetch?url=http://169.254.169.254/latest/meta-data/"
+      - "{{BaseURL}}/proxy?target=localhost:22"
+      - "{{BaseURL}}/image?src=file:///etc/passwd"
+    
+    matchers:
+      - type: word
+        words:
+          - "ami-id"
+          - "instance-id"
+          - "SSH-2.0"
+          - "root:x:0:0"
+        part: body

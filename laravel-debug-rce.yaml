@@ -1,0 +1,28 @@
+id: laravel-debug-rce
+info:
+  name: Laravel Debug Mode Exposure
+  author: grok
+  severity: critical
+  description: Detects Laravel applications with debug mode enabled, potentially leading to RCE or sensitive information disclosure.
+  tags: laravel,php
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/index.php"
+      
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "APP_DEBUG=true"
+          - "Laravel"
+        condition: and
+      - type: status
+        status:
+          - 200
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "APP_KEY=[a-zA-Z0-9:/+]+"

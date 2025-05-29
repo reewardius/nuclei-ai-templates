@@ -1,0 +1,23 @@
+id: aspnet-webconfig-exposure
+info:
+  name: ASP.NET Web.config Exposure
+  author: grok
+  severity: critical
+  description: Detects exposed ASP.NET web.config files containing sensitive configurations like connection strings.
+  tags: aspnet,dotnet
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/web.config"
+      - "{{BaseURL}}/App_Config/web.config"
+      - "{{BaseURL}}/config/web.config"
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "<connectionStrings>.*?</connectionStrings>"
+          - "password=[^\\s]+"
+        condition: or
+      - type: status
+        status:
+          - 200

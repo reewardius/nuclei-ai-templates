@@ -1,0 +1,28 @@
+id: nodejs-env-leak
+
+info:
+  name: Node.js Environment Variable Leak
+  author: grok
+  severity: high
+  description: Detects exposed Node.js environment files containing sensitive information like API keys or database credentials.
+  tags: nodejs, secret-leak
+  
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/config/.env"
+      - "{{BaseURL}}/config/env"
+      - "{{BaseURL}}/app/.env"
+      
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "NODE_ENV=.*"
+          - "API_KEY=[^\\s]+"
+          - "DB_PASSWORD=[^\\s]+"
+          
+      - type: status
+        status:
+          - 200

