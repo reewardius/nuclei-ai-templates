@@ -9,8 +9,10 @@ info:
 http:
   - method: GET
     path:
-      - "{{BaseURL}}/"
       - "{{BaseURL}}/web.config"
+      - "{{BaseURL}}/config/web.config"
+      - "{{BaseURL}}/backend/web.config"
+      - "{{BaseURL}}/app/web.config"
       
     matchers-condition: and
     matchers:

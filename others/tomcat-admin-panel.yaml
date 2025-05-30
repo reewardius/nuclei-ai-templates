@@ -20,4 +20,3 @@ http:
         words:
           - "Tomcat Web Application Manager"
           - "Tomcat Virtual Host Manager"
-        condition: or

@@ -10,6 +10,8 @@ http:
     path:
       - "{{BaseURL}}/appsettings.json"
       - "{{BaseURL}}/config/appsettings.json"
+      - "{{BaseURL}}/backend/appsettings.json"
+      - "{{BaseURL}}/api/appsettings.json"
     matchers-condition: and
     matchers:
       - type: regex
@@ -17,6 +19,7 @@ http:
           - "\"ConnectionStrings\":\\s*\\{[^}]+\\}"
           - "\"ApiKey\":\\s*\"[^\"]+\""
           - "\"Secret\":\\s*\"[^\"]+\""
+          - '"ClientSecret"\s*:\s*"[^"]+"'
         condition: or
       - type: status
         status:

