@@ -1,0 +1,33 @@
+id: xss-param-js-fuzzing
+info:
+  name: XSS Params Fuzzing
+  author: reewardius
+  severity: high
+  tags: dast,fuzzing-req,fuzzing-req-xss,xss
+
+http:
+  - method: GET
+    path:
+      - '{{BaseURL}}?{{param}}="></script><script>alert(1)</script>'
+      - '{{BaseURL}}/?{{param}}="></script><script>alert(1)</script>'
+      - '{{BaseURL}}&{{param}}="></script><script>alert(1)</script>'
+      
+    payloads:
+      param: params.txt
+      
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '<script>alert(1)</script>'
+          
+      - type: word
+        part: header
+        words:
+          - text/html
+          
+      - type: status
+        status:
+          - 200
