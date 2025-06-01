@@ -43,6 +43,7 @@ http:
         
     fuzzing:
       - part: query
+        type: replace
         mode: single
         fuzz:
           - "{{mssql_oob}}"

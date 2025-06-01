@@ -28,6 +28,7 @@ http:
         
     fuzzing:
       - part: query
+        type: replace
         mode: single
         fuzz:
           - "{{oob_payloads}}"

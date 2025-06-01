@@ -23,7 +23,8 @@ http:
         
     fuzzing:
       - part: query
-        mode: multiple
+        type: replace
+        mode: single
         fuzz:
           - "{{ssrf}}"
 
