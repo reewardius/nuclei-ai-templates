@@ -12,7 +12,8 @@ http:
     path:
       - "{{BaseURL}}/?wicket:bookmarkablePage=:org.apache.wicket.markup.html.pages.ExceptionErrorPage"
       - "{{BaseURL}}/wicket/bookmarkable/org.apache.wicket.devutils.inspector.InspectorPage"
-    
+      
+    matchers-condition: and
     matchers:
       - type: word
         words:
@@ -21,3 +22,9 @@ http:
           - "wicket.devutils"
         part: body
         condition: or
+
+      - type: word
+        words:
+          - "Cannot GET /wicket/"
+        part: body
+        negative: true
