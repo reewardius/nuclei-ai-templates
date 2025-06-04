@@ -13,5 +13,5 @@ nuclei -l katana.txt -t nuclei-ai-templates/ -dast -fuzz-param-frequency 10000
 #### Possible Broken Link Hijacking
 ```bash
 nuclei -l alive_http_services.txt -t nuclei-ai-templates/others/broken-link-hijacking.yaml -o results.txt
-grep -o '\["[^"]*"\]' results.txt | sed 's/\["//;s/"\]//' | sort -u
+awk -F'\\["|\"]' '{if (NF>1) print $2}' results.txt | sort -u
 ```
