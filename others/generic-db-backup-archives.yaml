@@ -1,4 +1,4 @@
-id: generic-db-backup-archives
+id: ai-generic-db-backup-archives
 info:
   name: Generic Database Backup Archives
   author: xai
@@ -46,7 +46,10 @@ http:
     matchers:
       - type: regex
         regex:
-          - "(?mi)(?:CREATE|DROP|INSERT)\s+(TABLE|INTO|DATABASE)\s+[^\s;]+|--\s+MySQL dump|pg_dump|SQLite\s+format"
+          - "(?mi)(?:CREATE|DROP|INSERT)\\s+(TABLE|INTO|DATABASE)\\s+[^\\s;]+"
+          - "(?mi)--\\s+MySQL\\s+dump"
+          - "(?mi)pg_dump"
+          - "(?mi)SQLite\\s+format"
         part: body
       - type: status
         status:
@@ -60,5 +63,7 @@ http:
       - type: regex
         name: archive_info
         regex:
-          - "(?mi)(?:CREATE|DROP|INSERT)\s+(TABLE|INTO|DATABASE)\s+[^\s;]+|--\s+MySQL dump|pg_dump"
+          - "(?mi)(?:CREATE|DROP|INSERT)\\s+(TABLE|INTO|DATABASE)\\s+[^\\s;]+"
+          - "(?mi)--\\s+MySQL\\s+dump"
+          - "(?mi)pg_dump"
         part: body

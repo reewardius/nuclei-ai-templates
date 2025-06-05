@@ -57,5 +57,5 @@ http:
       - type: regex
         name: sqlite_info
         regex:
-          - "(?i)SQLite\s+format\s+3"
+          - "(?i)SQLite\\s+format\\s+3"
         part: body

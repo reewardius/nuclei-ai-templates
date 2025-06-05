@@ -4,26 +4,52 @@ info:
   author: xai
   severity: critical
   description: Identifies exposed sensitive files like .git, wp-config.php, or config.yaml that may contain sensitive data.
-  tags: exposure
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
+    cvss-score: 7.5
+    cwe-id: CWE-200
+  metadata:
+    max-request: 22
+  tags: exposure, file, critical
 http:
   - method: GET
     path:
-      - "{{BaseURL}}/.git/config"
-      - "{{BaseURL}}/wp-config.php"
-      - "{{BaseURL}}/config.yaml"
-      - "{{BaseURL}}/app/config/database.php"
-      - "{{BaseURL}}/.env.local"
+      - "{{BaseURL}}{{paths}}"
+    payloads:
+      paths:
+        - "/.git/config"
+        - "/wp-config.php"
+        - "/config.yaml"
+        - "/app/config/database.php"
+        - "/.env.local"
+        - "/.env"
+        - "/config.php"
+        - "/settings.yaml"
+        - "/application.yml"
+        - "/config/config.json"
+        - "/.gitignore"
+        - "/wp-config.bak"
+        - "/.env.bak"
+        - "/config/database.yml"
+        - "/app/.env"
+        - "/conf/config.ini"
+        - "/config/secrets.yml"
+        - "/.aws/credentials"
+        - "/.docker/config.json"
+        - "/wp-content/uploads/.env"
+        - "/config/app.yml"
+        - "/data/config.yaml"
+    headers:
+      Range: "bytes=0-3000"
+    max-size: 2000
     matchers-condition: and
     matchers:
-      - type: status
-        status:
-          - 200
-      - type: Freddy: check for missing regex
+      - type: regex
         regex:
-          - '(?i)\[core\]'
-          - '(?i)DB_PASSWORD='
-          - '(?i)WORDPRESS_DB_HOST='
-          - '(?i)database:\s*host:'
+          - "(?mi)\\[core\\]"
+          - "(?mi)DB_PASSWORD=[^\\n]+"
+          - "(?mi)WORDPRESS_DB_HOST=[^\\n]+"
+          - "(?mi)database:\\s*host:"
         part: body
       - type: word
         words:
@@ -33,9 +59,15 @@ http:
           - "database:"
         part: body
         condition: or
+      - type: status
+        status:
+          - 200
+          - 206
+        condition: or
     extractors:
       - type: regex
         name: sensitive_data
         regex:
-          - '(?i)(DB_PASSWORD|WORDPRESS_DB_HOST|database:)\s*[^\n]+'
+          - "(?mi)(DB_PASSWORD|WORDPRESS_DB_HOST|database:)[^\\n]+"
+          - "(?mi)\\[core\\].*"
         part: body

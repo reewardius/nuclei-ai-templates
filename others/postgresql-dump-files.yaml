@@ -46,7 +46,9 @@ http:
     matchers:
       - type: regex
         regex:
-          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|SCHEMA|DATABASE)\s+[^\s;]+|COPY\s+[^\s;]+|pg_dump"
+          - "(?mi)(?:CREATE|DROP|ALTER)\\s+(TABLE|SCHEMA|DATABASE)\\s+[^\\s;]+"
+          - "(?mi)COPY\\s+[^\\s;]+"
+          - "(?mi)pg_dump"
         part: body
       - type: status
         status:
@@ -57,5 +59,7 @@ http:
       - type: regex
         name: pg_dump_info
         regex:
-          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|SCHEMA|DATABASE)\s+[^\s;]+|COPY\s+[^\s;]+|pg_dump"
+          - "(?mi)(?:CREATE|DROP|ALTER)\\s+(TABLE|SCHEMA|DATABASE)\\s+[^\\s;]+"
+          - "(?mi)COPY\\s+[^\\s;]+"
+          - "(?mi)pg_dump"
         part: body

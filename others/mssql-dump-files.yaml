@@ -46,8 +46,10 @@ http:
     matchers:
       - type: regex
         regex:
-          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|DATABASE|SCHEMA)\s+[^\s;]+|INSERT\s+INTO\s+[^\s;]+|BACKUP\s+DATABASE"
-          - "(?mi)--\s*SQL\s*Server\s*dump|--\s*Microsoft\s*SQL\s*Server"
+          - "(?mi)(?:CREATE|DROP|ALTER)\\s+(TABLE|DATABASE|SCHEMA)\\s+[^\\s;]+"
+          - "(?mi)INSERT\\s+INTO\\s+[^\\s;]+"
+          - "(?mi)BACKUP\\s+DATABASE"
+          - "(?mi)--\\s*SQL\\s+Server\\s+dump|--\\s*Microsoft\\s+SQL\\s+Server"
         part: body
       - type: status
         status:
@@ -58,10 +60,11 @@ http:
       - type: regex
         name: mssql_dump_info
         regex:
-          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|DATABASE|SCHEMA)\s+[^\s;]+|BACKUP\s+DATABASE|--\s*SQL\s*Server\s*dump"
+          - "(?mi)(?:CREATE|DROP|ALTER)\\s+(TABLE|DATABASE|SCHEMA)\\s+[^\\s;]+"
+          - "(?mi)BACKUP\\s+DATABASE|--\\s*SQL\\s+Server\\s+dump"
         part: body
       - type: regex
         name: table_names
         regex:
-          - "(?mi)CREATE\s+TABLE\s+([^\s(]+)"
+          - "(?mi)CREATE\\s+TABLE\\s+([^\\s(]+)"
         part: body

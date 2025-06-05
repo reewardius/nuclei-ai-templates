@@ -4,7 +4,13 @@ info:
   author: xai
   severity: high
   description: Identifies web applications with debug mode enabled, exposing sensitive debugging information.
-  tags: debug
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 5.3
+    cwe-id: CWE-200
+  metadata:
+    max-request: 5
+  tags: debug, misconfig, high
 http:
   - method: GET
     path:
@@ -14,7 +20,7 @@ http:
       - "{{BaseURL}}/debug.php"
       - "{{BaseURL}}/wp-admin/"
     headers:
-      - 'X-Debug: true'
+      X-Debug: "true"
     matchers-condition: and
     matchers:
       - type: status
@@ -31,12 +37,12 @@ http:
         condition: or
       - type: regex
         regex:
-          - '(?i)debug[\s]*=[\s]*true'
-          - '(?i)stack\s*trace'
+          - "(?i)debug\\s*=\\s*true"
+          - "(?i)stack\\s+trace"
         part: body
     extractors:
       - type: regex
         name: debug_info
         regex:
-          - '(?i)stack\s*trace:.*'
+          - "(?i)stack\\s+trace:.*"
         part: body
