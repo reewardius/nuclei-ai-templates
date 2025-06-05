@@ -1,0 +1,42 @@
+id: ai-debug-mode-enabled
+info:
+  name: Detect Debug Mode Enabled
+  author: xai
+  severity: high
+  description: Identifies web applications with debug mode enabled, exposing sensitive debugging information.
+  tags: debug
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      - "{{BaseURL}}/index.php"
+      - "{{BaseURL}}/debug"
+      - "{{BaseURL}}/debug.php"
+      - "{{BaseURL}}/wp-admin/"
+    headers:
+      - 'X-Debug: true'
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - "Debug mode: on"
+          - "DEBUG: true"
+          - "Stack trace:"
+          - "Exception Details"
+          - "Traceback (most recent call last):"
+        part: body
+        condition: or
+      - type: regex
+        regex:
+          - '(?i)debug[\s]*=[\s]*true'
+          - '(?i)stack\s*trace'
+        part: body
+    extractors:
+      - type: regex
+        name: debug_info
+        regex:
+          - '(?i)stack\s*trace:.*'
+        part: body

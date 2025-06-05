@@ -1,0 +1,42 @@
+id: ai-open-api-pii-exposure
+info:
+  name: Detect Open API Exposing PII Data
+  author: xai
+  severity: critical
+  description: Identifies open APIs that expose Personally Identifiable Information (PII) such as email, phone numbers, or credit card details without authentication.
+  tags: api,pii
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/api/v1/users"
+      - "{{BaseURL}}/api/users"
+      - "{{BaseURL}}/api/v2/users"
+      - "{{BaseURL}}/api/customers"
+      - "{{BaseURL}}/api/profiles"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: regex
+        regex:
+          - '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b' # Email
+          - '\b\d{3}-\d{3}-\d{4}\b' # US Phone Number
+          - '\b\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\b' # Credit Card Number
+        part: body
+      - type: word
+        words:
+          - '"email":'
+          - '"phone":'
+          - '"ssn":'
+          - '"credit_card":'
+        part: body
+        condition: or
+    extractors:
+      - type: regex
+        name: pii_data
+        regex:
+          - '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'
+          - '\b\d{3}-\d{3}-\d{4}\b'
+          - '\b\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\b'
+        part: body

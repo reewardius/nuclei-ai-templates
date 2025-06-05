@@ -1,0 +1,39 @@
+id: ai-insecure-api-token-exposure
+info:
+  name: Detect Insecure API Token Exposure
+  author: xai
+  severity: critical
+  description: Identifies exposed API tokens or keys in configuration files or responses.
+  tags: api
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/config.json"
+      - "{{BaseURL}}/api/config"
+      - "{{BaseURL}}/settings.yaml"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: regex
+        regex:
+          - '(?i)API_KEY=[a-zA-Z0-9]{20,}'
+          - '(?i)SECRET_KEY=[a-zA-Z0-9]{20,}'
+          - '(?i)TOKEN=[a-zA-Z0-9]{20,}'
+        part: body
+      - type: word
+        words:
+          - "API_KEY"
+          - "SECRET_KEY"
+          - "TOKEN"
+          - "AWS_ACCESS_KEY"
+        part: body
+        condition: or
+    extractors:
+      - type: regex
+        name: api_token
+        regex:
+          - '(?i)(API_KEY|SECRET_KEY|TOKEN)=[a-zA-Z0-9]{20,}'
+        part: body

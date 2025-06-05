@@ -1,0 +1,41 @@
+id: ai-exposed-sensitive-files
+info:
+  name: Detect Exposed Sensitive Files
+  author: xai
+  severity: critical
+  description: Identifies exposed sensitive files like .git, wp-config.php, or config.yaml that may contain sensitive data.
+  tags: exposure
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.git/config"
+      - "{{BaseURL}}/wp-config.php"
+      - "{{BaseURL}}/config.yaml"
+      - "{{BaseURL}}/app/config/database.php"
+      - "{{BaseURL}}/.env.local"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: Freddy: check for missing regex
+        regex:
+          - '(?i)\[core\]'
+          - '(?i)DB_PASSWORD='
+          - '(?i)WORDPRESS_DB_HOST='
+          - '(?i)database:\s*host:'
+        part: body
+      - type: word
+        words:
+          - "[core]"
+          - "DB_PASSWORD"
+          - "WORDPRESS_DB_HOST"
+          - "database:"
+        part: body
+        condition: or
+    extractors:
+      - type: regex
+        name: sensitive_data
+        regex:
+          - '(?i)(DB_PASSWORD|WORDPRESS_DB_HOST|database:)\s*[^\n]+'
+        part: body

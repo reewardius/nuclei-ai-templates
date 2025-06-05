@@ -1,0 +1,61 @@
+id: ai-sqlite-database-files
+info:
+  name: SQLite - Database Files
+  author: xai
+  severity: critical
+  description: An SQLite database file was found, potentially exposing sensitive data.
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
+    cvss-score: 7.5
+    cwe-id: CWE-200
+  metadata:
+    max-request: 22
+  tags: exposure, database, sqlite
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}{{paths}}"
+    payloads:
+      paths:
+        - "/database.sqlite"
+        - "/db.sqlite"
+        - "/data.sqlite"
+        - "/{{Host}}.sqlite"
+        - "/{{Host}}_db.sqlite"
+        - "/app.sqlite"
+        - "/sqlite.db"
+        - "/backup.sqlite"
+        - "/db_backup.sqlite"
+        - "/local.sqlite"
+        - "/site.sqlite"
+        - "/users.sqlite"
+        - "/www.sqlite"
+        - "/temp.sqlite"
+        - "/sqlitedb.sqlite"
+        - "/db/database.sqlite"
+        - "/backups/db.sqlite"
+        - "/wp-content/uploads/database.sqlite"
+        - "/wp-content/sqlite.db"
+        - "/app/database.sqlite"
+        - "/data/db.sqlite"
+        - "/storage/database.sqlite"
+    headers:
+      Range: "bytes=0-3000"
+    max-size: 2000
+    matchers-condition: and
+    matchers:
+      - type: binary
+        binary:
+          - "53514C69746520666F726D61742033" # SQLite format 3 (hex)
+        part: body
+      - type: status
+        status:
+          - 200
+          - 206
+        condition: or
+    extractors:
+      - type: regex
+        name: sqlite_info
+        regex:
+          - "(?i)SQLite\s+format\s+3"
+        part: body

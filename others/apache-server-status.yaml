@@ -11,7 +11,7 @@ http:
   - method: GET
     path:
       - "{{BaseURL}}/server-status"
-
+      
     stop-at-first-match: true
     matchers:
       - type: word

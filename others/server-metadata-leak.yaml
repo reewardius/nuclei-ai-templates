@@ -1,0 +1,42 @@
+id: ai-server-metadata-leak
+info:
+  name: Detect Server Metadata Leaks
+  author: xai
+  severity: high
+  description: Identifies server metadata leaks in HTTP headers or response bodies, exposing server software versions or configurations.
+  tags: metadata
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      - "{{BaseURL}}/server-status"
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/info.php"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: regex
+        regex:
+          - '(?i)server:.*\d+\.\d+\.\d+'
+          - '(?i)powered-by:.*\d+\.\d+\.\d+'
+          - '(?i)php/\d+\.\d+\.\d+'
+          - '(?i)apache/\d+\.\d+\.\d+'
+        part: header
+      - type: word
+        words:
+          - "PHP Version"
+          - "Server version:"
+          - "DB_HOST="
+          - "DB_PASSWORD="
+        part: body
+        condition: or
+    extractors:
+      - type: regex
+        name: server_version
+        regex:
+          - '(?ilisten
+            - '\bDB_HOST=[^\n]+'
+            - '\bDB_PASSWORD=[^\n]+'
+        part: body

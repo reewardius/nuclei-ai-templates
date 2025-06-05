@@ -1,0 +1,61 @@
+id: ai-postgresql-dump-files
+info:
+  name: PostgreSQL - Dump Files
+  author: xai
+  severity: high
+  description: A PostgreSQL dump file was found, potentially exposing sensitive database information.
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 5.3
+    cwe-id: CWE-200
+  metadata:
+    max-request: 22
+  tags: exposure, backup, postgresql
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}{{paths}}"
+    payloads:
+      paths:
+        - "/pg_dump.sql"
+        - "/postgres.sql"
+        - "/postgresql.sql"
+        - "/db_postgres.sql"
+        - "/backup_postgres.sql"
+        - "/{{Host}}_pg.sql"
+        - "/{{Host}}_postgres.sql"
+        - "/pg_backup.sql"
+        - "/database_pg.sql"
+        - "/data_postgres.sql"
+        - "/dump_postgres.sql"
+        - "/localhost_pg.sql"
+        - "/pgdump.sql"
+        - "/site_postgres.sql"
+        - "/sql_postgres.sql"
+        - "/temp_pg.sql"
+        - "/users_postgres.sql"
+        - "/www_postgres.sql"
+        - "/db/pgsql_dump.sql"
+        - "/backups/pg_dump.sql"
+        - "/wp-content/uploads/pg_dump.sql"
+        - "/wp-content/postgres.sql"
+    headers:
+      Range: "bytes=0-3000"
+    max-size: 2000
+    matchers-condition: and
+    matchers:
+      - type: regex
+        regex:
+          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|SCHEMA|DATABASE)\s+[^\s;]+|COPY\s+[^\s;]+|pg_dump"
+        part: body
+      - type: status
+        status:
+          - 200
+          - 206
+        condition: or
+    extractors:
+      - type: regex
+        name: pg_dump_info
+        regex:
+          - "(?mi)(?:CREATE|DROP|ALTER)\s+(TABLE|SCHEMA|DATABASE)\s+[^\s;]+|COPY\s+[^\s;]+|pg_dump"
+        part: body
