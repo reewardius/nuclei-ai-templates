@@ -3,7 +3,7 @@
 subfinder -dL root.txt -all -silent -o subs.txt && \
 naabu -l subs.txt -s s -tp 100 -ec -c 50 -o naabu.txt && \
 httpx -l naabu.txt -rl 500 -t 200 -o alive_http_services.txt && \
-nuclei -l alive_http_services.txt -t nuclei-ai-templates/ -rl 1000 -c 100
+nuclei -l alive_http_services.txt -t nuclei-ai-templates/ -rl 1000 -c 100 -et fuzzing/
 ```
 #### Nuclei Active DAST Scanning with AI Templates
 ```bash
