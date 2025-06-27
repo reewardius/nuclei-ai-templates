@@ -1,71 +1,168 @@
 id: broken-link-hijacking
-
 info:
-  name: Broken Link Hijacking
-  author: gaurang
+  name: Broken Link Hijacking Detection
+  author: ai
   severity: medium
   description: |
-    This template checks for broken link hijacking by identifying references to specific domains in the response body.
-    The listed domains are common targets for hijacking.
-  tags: security,broken-link-hijacking
+    This template detects potential broken link hijacking vulnerabilities by identifying references 
+    to external social media and platform domains in the response body. These links could potentially 
+    be hijacked if they point to non-existent or expired accounts/pages.
+  reference:
+    - https://edoverflow.com/2017/broken-link-hijacking/
+    - https://blog.detectify.com/2014/10/21/hostile-subdomain-takeover-using-herokugithubdesk-more/
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:N
+    cvss-score: 4.2
+    cwe-id: CWE-1021
+  tags: security,broken-link-hijacking,social-media,external-links
+  metadata:
+    max-request: 1
 
 http:
   - method: GET
     path:
       - "{{BaseURL}}"
-
+    
     matchers-condition: or
     matchers:
-      - type: regex
-        part: body
-        regex:
-          - "https?://(?:www\\.)?linkedin\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?facebook\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?twitter\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?x\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?instagram\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?github\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?play\\.google\\.com[\\w\\-./?&%]*"
-          - "https?://(?:www\\.)?apps\\.apple\\.com[\\w\\-./?&%]*"
-
-    extractors:
+      # LinkedIn
       - type: regex
         name: linkedin-links
         part: body
         regex:
-          - "https?://(?:www\\.)?linkedin\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?linkedin\.com/[\w\-\./?&%]*'
+          
+      # Facebook
       - type: regex
         name: facebook-links
         part: body
         regex:
-          - "https?://(?:www\\.)?facebook\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?facebook\.com/[\w\-\./?&%]*'
+          - 'https?://(?:www\.)?fb\.com/[\w\-\./?&%]*'
+          
+      # Twitter/X
       - type: regex
-        name: twitter-links
+        name: twitter-x-links
         part: body
         regex:
-          - "https?://(?:www\\.)?twitter\\.com[\\w\\-./?&%]*"
-      - type: regex
-        name: x-links
-        part: body
-        regex:
-          - "https?://(?:www\\.)?x\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?twitter\.com/[\w\-\./?&%]*'
+          - 'https?://(?:www\.)?x\.com/[\w\-\./?&%]*'
+          
+      # Instagram
       - type: regex
         name: instagram-links
         part: body
         regex:
-          - "https?://(?:www\\.)?instagram\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?instagram\.com/[\w\-\./?&%]*'
+          - 'https?://(?:www\.)?instagr\.am/[\w\-\./?&%]*'
+          
+      # TikTok
+      - type: regex
+        name: tiktok-links
+        part: body
+        regex:
+          - 'https?://(?:www\.)?tiktok\.com/[\w\-\./?&%@]*'
+          
+      # YouTube
+      - type: regex
+        name: youtube-links
+        part: body
+        regex:
+          - 'https?://(?:www\.)?youtube\.com/[\w\-\./?&%@]*'
+          - 'https?://(?:[a-z]+\.)?youtube\.com/[\w\-\./?&%@]*'
+          
+      # Telegram
+      - type: regex
+        name: telegram-links
+        part: body
+        regex:
+          - 'https?://(?:t\.me|telegram\.me|telegram\.org)/[\w\-\./?&%]*'
+          - 'tg://resolve\?domain=[\w\-\.]+/?'
+          
+      # GitHub
       - type: regex
         name: github-links
         part: body
         regex:
-          - "https?://(?:www\\.)?github\\.com[\\w\\-./?&%]*"
-      - type: regex
-        name: play-store-links
-        part: body
-        regex:
-          - "https?://(?:www\\.)?play\\.google\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?github\.com/[\w\-\./?&%]*'
+          
+      # App Stores
       - type: regex
         name: app-store-links
         part: body
         regex:
-          - "https?://(?:www\\.)?apps\\.apple\\.com[\\w\\-./?&%]*"
+          - 'https?://(?:www\.)?play\.google\.com/[\w\-\./?&%]*'
+          - 'https?://(?:www\.)?apps\.apple\.com/[\w\-\./?&%]*'
+
+    extractors:
+      # LinkedIn
+      - type: regex
+        name: linkedin-profiles
+        part: body
+        regex:
+          - 'https?://(?:www\.)?linkedin\.com/([\w\-\./?&%]*)'
+          
+      # Facebook
+      - type: regex
+        name: facebook-profiles
+        part: body
+        regex:
+          - 'https?://(?:www\.)?(?:facebook|fb)\.com/([\w\-\./?&%]*)'
+          
+      # Twitter/X
+      - type: regex
+        name: twitter-x-profiles
+        part: body
+        regex:
+          - 'https?://(?:www\.)?(?:twitter|x)\.com/([\w\-\./?&%]*)'
+          
+      # Instagram
+      - type: regex
+        name: instagram-profiles
+        part: body
+        regex:
+          - 'https?://(?:www\.)?(?:instagram\.com|instagr\.am)/([\w\-\./?&%]*)'
+          
+      # TikTok
+      - type: regex
+        name: tiktok-profiles
+        part: body
+        regex:
+          - 'https?://(?:www\.)?tiktok\.com/([\w\-\./?&%@]*)'
+          
+      # YouTube
+      - type: regex
+        name: youtube-channels
+        part: body
+        regex:
+          - 'https?://(?:[a-z]*\.)?youtube\.com/([\w\-\./?&%@]*)'
+          
+      # Telegram
+      - type: regex
+        name: telegram-channels
+        part: body
+        regex:
+          - 'https?://(?:t\.me|telegram\.me|telegram\.org)/([\w\-\./?&%]*)'
+          - 'tg://resolve\?domain=([\w\-\.]+)'
+          
+      # GitHub
+      - type: regex
+        name: github-repositories
+        part: body
+        regex:
+          - 'https?://(?:www\.)?github\.com/([\w\-\./?&%]*)'
+          
+      # App Stores
+      - type: regex
+        name: play-store-apps
+        part: body
+        regex:
+          - 'https?://(?:www\.)?play\.google\.com/([\w\-\./?&%]*)'
+          
+      - type: regex
+        name: app-store-apps
+        part: body
+        regex:
+          - 'https?://(?:www\.)?apps\.apple\.com/([\w\-\./?&%]*)'
+
+    stop-at-first-match: false
