@@ -2,18 +2,18 @@ id: broken-link-hijacking
 
 info:
   name: Broken Link Hijacking
-  author: gaurang
+  author: reewardius
   severity: medium
   description: |
     This template checks for broken link hijacking by identifying references to specific domains in the response body.
     The listed domains are common targets for hijacking.
   tags: security,broken-link-hijacking
-
+  
 http:
   - method: GET
     path:
       - "{{BaseURL}}"
-
+      
     matchers-condition: or
     matchers:
       - type: regex
@@ -27,6 +27,9 @@ http:
           - "https?://(?:www\\.)?github\\.com[\\w\\-./?&%]*"
           - "https?://(?:www\\.)?play\\.google\\.com[\\w\\-./?&%]*"
           - "https?://(?:www\\.)?apps\\.apple\\.com[\\w\\-./?&%]*"
+          - "https?://(?:www\\.)?tiktok\\.com[\\w\\-./?&%]*"
+          - "https?://(?:www\\.)?youtube\\.com[\\w\\-./?&%]*"
+          - "https?://(?:t\\.me|telegram\\.me|telegram\\.org)/[\\w\\-./?&%]*"
 
     extractors:
       - type: regex
@@ -69,3 +72,18 @@ http:
         part: body
         regex:
           - "https?://(?:www\\.)?apps\\.apple\\.com[\\w\\-./?&%]*"
+      - type: regex
+        name: tiktok-links
+        part: body
+        regex:
+          - "https?://(?:www\\.)?tiktok\\.com[\\w\\-./?&%]*"
+      - type: regex
+        name: youtube-links
+        part: body
+        regex:
+          - "https?://(?:www\\.)?youtube\\.com[\\w\\-./?&%]*"
+      - type: regex
+        name: telegram-links
+        part: body
+        regex:
+          - "https?://(?:t\\.me|telegram\\.me|telegram\\.org)/[\\w\\-./?&%]*"
