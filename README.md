@@ -16,3 +16,8 @@ nuclei -l alive_http_services.txt -t nuclei-ai-templates/others/broken-link-hija
 awk -F'\\["|\"]' '{if (NF>1) print $2}' results.txt | tr ',' '\n' | sed 's/"//g' | sort -u > social_links.txt && \
 httpx -l social_links.txt -mc 404
 ```
+#### 401 bypass
+```
+https -l alive_http_services -mc 401 -o 401.txt && \
+nuclei -l 401.txt -t default-credentials-401-bruteforce.yaml
+```
