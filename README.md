@@ -18,6 +18,6 @@ httpx -l social_links.txt -mc 404
 ```
 #### 401 bypass
 ```
-https -l alive_http_services -mc 401 -o 401.txt && \
+https -l alive_http_services.txt -mc 401 -o 401.txt && \
 nuclei -l 401.txt -t default-credentials-401-bruteforce.yaml
 ```
