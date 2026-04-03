@@ -21,4 +21,4 @@ http:
     extractors:
       - type: dsl
         dsl:
-          - '"[HIT - FUZZ THIS] " + BaseURL + " | root=" + status_code_1 + " /test=" + status_code_2'
+          - '"[HIT - FUZZ THIS] " + BaseURL + " | ffuf -u " + BaseURL + "/FUZZ -w bbFuzzing.txt -ac -mc 200"'
