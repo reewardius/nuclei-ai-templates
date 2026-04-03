@@ -21,7 +21,7 @@ httpx -l social_links.txt -mc 404
 httpx -l alive_http_services.txt -mc 401 -o 401.txt && \
 nuclei -l 401.txt -t default-credentials-401-bruteforce.yaml
 ```
-#### 40X misconfig
+#### 40X misconfig + fuzzing
 ```
 httpx -l alive_http_services.txt -mc 400,401,403 -o 40X.txt && \
 nuclei -l 40X.txt -t 40X-to-404-misconfig.yaml -silent | grep -oP 'ffuf -u \S+ -w bbFuzzing\.txt -ac -mc 200' | bash
