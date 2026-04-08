@@ -1,0 +1,49 @@
+id: sqli-error-based-detection-form
+info:
+  name: SQL Injection Error Based — Form URL-Encoded
+  author: reewardius
+  severity: high
+  description: Detects SQL injection via error messages in form-based endpoints
+  tags: sqli,injection,form
+
+http:
+  # Вариант 1: login + password
+  - method: POST
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/api/auth"
+      - "{{BaseURL}}/api/auth/login"
+      - "{{BaseURL}}/api/login"
+      - "{{BaseURL}}/api/sig-in"
+      - "{{BaseURL}}/api/sigin"
+      - "{{BaseURL}}/api/v1/login"
+      - "{{BaseURL}}/api/v2/login"
+      - "{{BaseURL}}/api/v3/login"
+      - "{{BaseURL}}/auth/login"
+      - "{{BaseURL}}/login"
+      - "{{BaseURL}}/sign-in"
+      - "{{BaseURL}}/signin"
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    body: "login={{injection_payload}}&password=test123"
+    payloads:
+      injection_payload:
+        - "'"
+        - "''"
+        - '"'
+        - "' OR '1'='1"
+        - "' OR 1=1--"
+        - "'; SELECT 1--"
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "SQL error code"
+          - "Dynamic SQL Error"
+          - "Token unknown"
+          - "syntax error"
+          - "mysql_fetch"
+          - "ORA-00933"
+          - "pg_query()"
+        condition: or
