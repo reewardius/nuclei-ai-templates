@@ -36,6 +36,10 @@ http:
           - "SQL error code"
           - "Dynamic SQL Error"
           - "Token unknown"
+          - "syntax error"
+          - "mysql_fetch"
+          - "ORA-00933"
+          - "pg_query()"
         condition: or
 
   - method: POST
@@ -68,6 +72,10 @@ http:
           - "SQL error code"
           - "Dynamic SQL Error"
           - "Token unknown"
+          - "syntax error"
+          - "mysql_fetch"
+          - "ORA-00933"
+          - "pg_query()"
         condition: or
         
   - method: POST
@@ -100,6 +108,10 @@ http:
           - "SQL error code"
           - "Dynamic SQL Error"
           - "Token unknown"
+          - "syntax error"
+          - "mysql_fetch"
+          - "ORA-00933"
+          - "pg_query()"
         condition: or
         
   - method: POST
@@ -132,4 +144,8 @@ http:
           - "SQL error code"
           - "Dynamic SQL Error"
           - "Token unknown"
+          - "syntax error"
+          - "mysql_fetch"
+          - "ORA-00933"
+          - "pg_query()"
         condition: or
